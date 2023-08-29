@@ -28,7 +28,7 @@
                 <span class="font-light p-2 text-sm mb-5 mx-auto">Please enter your details</span>
                 <div class="flex flex-col space-y-3 mt-2 p-2">
                     <form action="submitotp.php" class="flex flex-col space-y-3" method="post">
-                    <label for="" class="text-red-500">Name</label>
+                    <label for="" class="">Name</label>
                     <input type="name" class="p-1 w-60 mx-auto border-2 border-grey-700" placeholder="Enter your name" name="name" autocomplete="off" required>
                     <label for="" class="">Email</label>
                     <input type="email" class="p-1 w-60 mx-auto border-2 border-grey-700" placeholder="Email" name="email" autocomplete="off" required>
