@@ -28,7 +28,23 @@ require 'phpmailer/src/SMTP.php';
 </html>
 
 <?php
+
 $email_id =  $_POST["email"];
+$msg = 'Email already exists, Try logging in!';
+$sql = "SELECT * FROM finalusers WHERE Email = '$email_id'";
+
+$search = mysqli_query($conn, $sql);
+$search_res = mysqli_fetch_assoc($search);
+
+$check_dup = $search_res["Email"];
+
+if($email_id == $check_dup){
+    header("Location: signup.php");
+
+    $_SESSION["duplicate"] = $msg;
+}
+
+else{
 
 $otp = rand(100000, 999999);
     if(isset($_POST["signup"])){
@@ -60,8 +76,8 @@ else{
             $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
             $pass = $_POST["password"];
-            $hash = $pass;
-            // $hash = password_hash($pass, PASSWORD_DEFAULT);
+            // $hash = $pass;
+             $hash = password_hash($pass, PASSWORD_DEFAULT);
             // echo "$name, $email, $pass";
             $sql = "INSERT INTO checkusers (Name, Email, password, otp)
                     VALUES ('$name', '$email', '$hash', '$otp')";
@@ -83,6 +99,7 @@ else{
     }
     }
 
+}
 
 //  $mail = new PHPMailer(true);
 

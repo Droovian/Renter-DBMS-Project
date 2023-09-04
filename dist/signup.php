@@ -1,5 +1,6 @@
 <?php
     include("database.php");
+    session_start();
 ?>
 
 
@@ -9,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <link rel="icon" href="fox-svgrepo-com.svg">
+    <link rel="icon" href="images/fox-svgrepo-com.svg">
     <link rel="stylesheet" href="output.css">
 </head>
 <body class="font-body">
@@ -18,6 +19,7 @@
         <img src="images/icons8-login-50.png" alt="home" class="w-10 mr-3 hover:animate-spin">
     </a>
 </nav>
+<p class="text-red-500 text-xl font-light text-center"><?php echo $_SESSION["duplicate"]; ?></p>
 <div class="flex items-center justify-center min-h-screen">
         <div class="flex flex-row  w-1/2 shadow-2xl rounded-md border-black sm:text-left">
             <div class="h-auto w-1/2 rounded-md flex flex-col">
@@ -56,43 +58,7 @@
 </html>
 
 <?php
-//    $_SESSION["Name"] = $_POST["name"];
-//    $_SESSION["email"] = $_POST["email"];
-//    $_SESSION["password"] = $_POST["password"];
 
-//    if(isset($_POST["signup"])){
-//         if(empty($_SESSION["Name"]) || empty($_SESSION["email"]) || empty($_SESSION["password"])){
-//             echo "Failed";
-//             header("Location:signup.php");
-//         }
-//    }
-    // $otp = rand(100000, 999999);
-    // if(isset($_POST["signup"])){
+session_destroy();
 
-    //     if(!empty($_POST["name"]) && !empty($_POST["email"]) && !empty($_POST["password"])){
-
-    //         $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_STRING);
-    //         $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
-    //         $pass = $_POST["password"];
-    //         $hash = password_hash($pass, PASSWORD_DEFAULT);
-            
-    //         // echo "$name, $email, $pass";
-    //         $sql = "INSERT INTO checkusers (Name, Email, password, otp)
-    //                 VALUES ('$name', '$email', '$hash', '$otp')";
-
-    //         try{
-    //             mysqli_query($conn, $sql);
-    //             echo "Registered!";
-    //             header("Location: submitotp.php");
-    //         }
-    //         catch(mysqli_sql_exception){
-    //             echo "Could not register";
-    //         }
-    //         mysqli_close($conn);
-            
-    //     }
-    //     else{
-    //         echo "Error";
-    //     }
-    // }
 ?>

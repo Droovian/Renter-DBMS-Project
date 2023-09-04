@@ -36,6 +36,7 @@ session_start();
 
     </div>
    
+    <p><?php if($test_flag){ echo "Either Email or Password was Invalid!"; }  ?></p>
     <div class="flex items-center justify-center min-h-screen w-full md:min-w-md">
         <div class="flex flex-row mx-auto h-auto w-full md:w-1/2 shadow-2xl rounded-md border-black">
             <div class="ml-32 h-auto w-full flex flex-col justify-center md:w-1/2 md:ml-0 rounded-md  mb-10">
@@ -83,7 +84,7 @@ session_start();
         $users_email = $_POST['email'];
         $users_password = $_POST['password'];
 
-        $sql = "SELECT * FROM finalusers WHERE Email = '$users_email' AND password = '$users_password' ";
+        $sql = "SELECT * FROM finalusers WHERE Email = '$users_email'";
 
         $query_result = mysqli_query($conn, $sql);
 
@@ -96,12 +97,12 @@ session_start();
           
             // $pass_verifier = password_verify($users_password, $pass_db);
 
-            if(($users_email == $email_db) && ($users_password == $pass_db)){
+            if(($users_email == $email_db) && password_verify($users_password, $pass_db)){
                 header("Location: index.php");
                 echo "Successful!";
             }
             else{
-                echo "An error occured";
+                $test_flag = true;
             }
 
             try{
@@ -112,7 +113,7 @@ session_start();
                 exit();
             }
         }
-
+        mysqli_close($conn);
     }
 
 ?>

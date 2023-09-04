@@ -43,8 +43,8 @@ if(isset($_POST['passreset'])){
         }
     }
     else{
-        $_SESSION['status'] = "No email found";
         header("Location: resetpassword.php");
+        echo '<h2 class="text-red-500">EMAIL DOES NOT EXIST!</h2>';
         exit(0);
     }
     echo $email;
@@ -114,7 +114,8 @@ if(isset($_POST['updatepass'])){
                 
                 if($new_password == $confirm_pass)
                 {
-                    $update_password = "UPDATE finalusers SET password='$new_password' WHERE reset_token_hash='$pass_token' LIMIT 1";
+                    $new_pass_hash = password_hash($new_password, PASSWORD_DEFAULT);
+                    $update_password = "UPDATE finalusers SET password='$new_pass_hash' WHERE reset_token_hash='$pass_token' LIMIT 1";
                     $update_password_run = mysqli_query($conn, $update_password);
 
                     if($update_password_run){
@@ -127,6 +128,11 @@ if(isset($_POST['updatepass'])){
                         exit(0);
 
                     }
+                }
+                else{
+                    header("Location: changepassword.php");
+                    $_SESSION['status'] = 'Passwords did not match';
+                    exit(0);
                 }
             }
             else{
@@ -147,6 +153,6 @@ if(isset($_POST['updatepass'])){
         exit(0);
     }
 }
-
+mysqli_close($conn);
 
 ?>

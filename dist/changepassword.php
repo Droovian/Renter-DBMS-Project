@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +15,7 @@
 </head>
 <body>
 
+    <p class="text-red-500 text-xl text-center"><?php  echo  $_SESSION['status']; ?></p>
     <div class="w-1/2 h-auto border border-gray-400 rounded-sm mx-auto mt-32 p-3">
         <div class="text-2xl text-sky-700">Change Password</div><hr>
         <br>
@@ -28,7 +36,7 @@
 
 <?php
 
-
+session_destroy();
 
 
 ?>
