@@ -1,7 +1,7 @@
 <?php
 
 include("database.php");
-session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,11 +12,11 @@ session_start();
     <link rel="icon" href="images/fox-svgrepo-com.svg">
     <link rel="stylesheet" href="output.css">
 </head>
-<body class="font-body">
+<body class="font-body bg-sky-500 sm:bg-white">
     <div class="p-2 m-0 w-full flex flex-row justify-between items-center">
        <div class="container flex flex-row items-center space-x-4">
-        <img src="images/fox-svgrepo-com.svg" alt="logo" class="w-10">
-        <a href="/" class="text-amber-700 text-2xl font-bold ">Renter</a>
+        <img src="images/fox-svgrepo-com.svg" alt="logo" class="w-10 invisible sm:visible">
+        <a href="/" class="text-amber-700 text-2xl font-bold invisible sm:visible">Renter</a>
        </div>
 
        <div class="mr-5">
@@ -36,10 +36,9 @@ session_start();
 
     </div>
    
-    <p><?php if($test_flag){ echo "Either Email or Password was Invalid!"; }  ?></p>
-    <div class="flex items-center justify-center min-h-screen w-full md:min-w-md">
-        <div class="flex flex-row mx-auto h-auto w-full md:w-1/2 shadow-2xl rounded-md border-black">
-            <div class="ml-32 h-auto w-full flex flex-col justify-center md:w-1/2 md:ml-0 rounded-md  mb-10">
+    <div class="flex items-center justify-center min-h-screen ">
+        <div class="bg-white flex flex-row mx-auto h-auto w-1/2 shadow-2xl rounded-md border-black">
+            <div class="bg-white h-auto w-full flex flex-col justify-center md:w-1/2 md:ml-0 rounded-md  mb-10">
                 <div class="flex flex-row space-x-2 mt-3 justify-center">
                     <img src="images/userfinal.svg" class="w-7" alt="user-logo">
                     <h2 class="font-bold text-xl">Login</h2>
@@ -69,7 +68,7 @@ session_start();
             
             </div>
     
-            <img src="images/mountaing.jpg" alt="maldives image" class="invisible md:visible h-auto w-1/2 rounded-md">
+            <img src="images/mountaing.jpg" alt="maldives image" class="invisible sm:invisible md:visible h-auto w-1/2 rounded-md">
         </div>
     </div>
 </body>
@@ -80,6 +79,7 @@ session_start();
 
 <?php
 
+$err_msg = "Either Email entered or Password was incorrect.";
     if(isset($_POST['login'])){
         $users_email = $_POST['email'];
         $users_password = $_POST['password'];
@@ -102,7 +102,10 @@ session_start();
                 echo "Successful!";
             }
             else{
-                $test_flag = true;
+                echo '<script>
+                alert("Either Email or Password is Incorrect");
+                window.location.href("login.php");
+                </script>';
             }
 
             try{
@@ -116,4 +119,5 @@ session_start();
         mysqli_close($conn);
     }
 
+   
 ?>

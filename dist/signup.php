@@ -13,15 +13,11 @@
     <link rel="icon" href="images/fox-svgrepo-com.svg">
     <link rel="stylesheet" href="output.css">
 </head>
-<body class="font-body">
-<nav class="absolute flex flex-row-reverse w-screen p-4">
-    <a href="login.php">
-        <img src="images/icons8-login-50.png" alt="home" class="w-10 mr-3 hover:animate-spin">
-    </a>
-</nav>
+<body class="font-body bg-sky-600 sm:bg-white">
+
 <p class="text-red-500 text-xl font-light text-center"><?php echo $_SESSION["duplicate"]; ?></p>
 <div class="flex items-center justify-center min-h-screen">
-        <div class="flex flex-row  w-1/2 shadow-2xl rounded-md border-black sm:text-left">
+        <div class="bg-white flex flex-row w-1/2 shadow-2xl rounded-md border-black sm:text-left">
             <div class="h-auto w-1/2 rounded-md flex flex-col">
                 <div class="flex flex-row space-x-2 mt-3 justify-center">
                     <img src="images/userfinal.svg" class="w-7" alt="user-logo">
@@ -40,8 +36,9 @@
                     <div class="flex justify-between items-center p-2">
                         <div class="mr-24 mt-2 flex space-x-2">
                             <input type="checkbox" name="cb" id="cb">
-                            <label for="" class="text-xs">Remember Me</label>
+                            <label for="" class="text-xs font-light">Remember Me</label>
                         </div>
+                        <a href="login.php" class="text-xs mt-2 font-light mx-auto">Already have an account?</a>
                     </div>
                     <input type="submit" name="signup" value="Register" class=" bg-black text-white text-center rounded-lg hover:bg-white hover:text-black  mx-auto w-32 md:w-1/2 p-2">
                 </form>

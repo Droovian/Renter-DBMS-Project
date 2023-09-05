@@ -14,7 +14,8 @@ require 'phpmailer/src/SMTP.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>reset</title>
+    <link rel="icon" href="images/fox-svgrepo-com.svg">
     <link rel="stylesheet" href="output.css">
 </head>
 <body>
@@ -65,7 +66,7 @@ function send_password_reset($name, $email_id, $token)
     $mail->SMTPSecure = 'ssl';
     $mail->Port = 465;
 
-    $mail->setFrom('rentercorp@gmail.com', $name);
+    $mail->setFrom('rentercorp@gmail.com');
     $mail->addAddress($email_id);
     $mail->isHTML(true);
     $mail->Subject = "Password Reset";
@@ -155,4 +156,5 @@ if(isset($_POST['updatepass'])){
 }
 mysqli_close($conn);
 
+session_destroy();
 ?>
