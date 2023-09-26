@@ -37,7 +37,7 @@ include("database.php");
     </div>
    
     <div class="flex items-center justify-center min-h-screen ">
-        <div class="bg-white flex flex-row mx-auto h-auto w-1/2 shadow-2xl rounded-md border-black">
+        <div class="flex flex-row mx-auto h-auto w-1/2 shadow-2xl rounded-md border-black">
             <div class="bg-white h-auto w-full flex flex-col justify-center md:w-1/2 md:ml-0 rounded-md  mb-10">
                 <div class="flex flex-row space-x-2 mt-3 justify-center">
                     <img src="images/userfinal.svg" class="w-7" alt="user-logo">

@@ -48,7 +48,7 @@ if(isset($_POST['passreset'])){
         echo '<h2 class="text-red-500">EMAIL DOES NOT EXIST!</h2>';
         exit(0);
     }
-    echo $email;
+    
     
 }
 
@@ -88,8 +88,8 @@ function send_password_reset($name, $email_id, $token)
 
     else{
         echo '
-        <div>
-        <p class="text-red-500 font-bold font-body">An Email has been sent to you with instructions for password change.</p>
+        <div class="p-3">
+        <p class="text-red-500 text-2xl text-center font-bold font-body">An Email has been sent to you with instructions for password change.</p>
         </div>
         ';
     }
@@ -131,7 +131,7 @@ if(isset($_POST['updatepass'])){
                     }
                 }
                 else{
-                    header("Location: changepassword.php");
+                    header("Location: changepassword.php?token=$pass_token&email=$email");
                     $_SESSION['status'] = 'Passwords did not match';
                     exit(0);
                 }

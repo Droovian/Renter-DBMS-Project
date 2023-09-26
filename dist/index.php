@@ -16,7 +16,7 @@ session_start();
     <div class="flex flex-row">
     <div class="flex flex-row space-x-3 w-full h-auto p-2">
         <div class="">
-        <img src="images/fox-svgrepo-com.svg" class="w-14 m-3 hover:animate-bounce" alt="renter-logo" >
+        <img src="images/fox-svgrepo-com.svg" class="w-10 m-3" alt="renter-logo" >
         </div>
         <div class="mx-auto inline-block ml-auto mt-3 text-amber-700">
             <h1 class="font-bold tracking-normal font-sans text-3xl mt-2">Renter</h1>
@@ -35,11 +35,10 @@ session_start();
         <input type="search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border rounded-2xl dark:bg-gray-700 dark:border-black-600 dark:placeholder-gray-400 dark:text-white dark:focus:outline-none" placeholder="Search Properties" autocomplete="off">
         <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-amber-700 hover:bg-amber-800 font-medium rounded-lg text-sm px-4 py-2 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800">Search</button>
     </div>
-    <button type="button" class="border-2 border-black" id="fetch-btn">Location</button>
+
     </form>
 </div>
 </div>
-<hr class="">
 
 <main class="mt-14 mx-10">
 <div class="grid md:grid-rows-4 md:grid-cols-4 md:gap-3 sm:grid sm:grid-rows-5 sm:grid-cols-2 sm:items-center md:items-center lg:items-center">

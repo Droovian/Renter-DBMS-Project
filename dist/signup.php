@@ -13,8 +13,7 @@
     <link rel="icon" href="images/fox-svgrepo-com.svg">
     <link rel="stylesheet" href="output.css">
 </head>
-<body class="font-body bg-sky-600 sm:bg-white">
-
+<body class="font-body bg-amber-500 sm:bg-gradient-to-t from-orange-400 to-sky-400">
 <p class="text-red-500 text-xl font-light text-center"><?php echo $_SESSION["duplicate"]; ?></p>
 <div class="flex items-center justify-center min-h-screen">
         <div class="bg-white flex flex-row w-1/2 shadow-2xl rounded-md border-black sm:text-left">
