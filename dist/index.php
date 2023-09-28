@@ -10,35 +10,39 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Renter</title>
     <link rel="icon" href="images/fox-svgrepo-com.svg">
-    <link rel="stylesheet" href="output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white">
+
     <div class="flex flex-row">
     <div class="flex flex-row space-x-3 w-full h-auto p-2">
-        <div class="">
-        <img src="images/fox-svgrepo-com.svg" class="w-10 m-3" alt="renter-logo" >
-        </div>
-        <div class="mx-auto inline-block ml-auto mt-3 text-amber-700">
-            <h1 class="font-bold tracking-normal font-sans text-3xl mt-2">Renter</h1>
+        <div class="mt-3 text-black p-2 mr-8">
+            <h1 class="font-bold font-body text-3xl mx-5">Renter</h1>
         </div>
     </div>
-    <div class="flex flex-row space-x-3 items-center mt-1 p-2 mr-5">
-
-    <form class="md:w-72">   
-    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-    <div class="relative">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-            </svg>
-        </div>
-        <input type="search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border rounded-2xl dark:bg-gray-700 dark:border-black-600 dark:placeholder-gray-400 dark:text-white dark:focus:outline-none" placeholder="Search Properties" autocomplete="off">
-        <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-amber-700 hover:bg-amber-800 font-medium rounded-lg text-sm px-4 py-2 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800">Search</button>
+    
+    <div class="justify-center  text-amber-700 font-light p-3 mt-5 mr-5">
+        <a href="signup.php" class="">Login/Register</a>
     </div>
 
-    </form>
+    
+    </div>
 </div>
-</div>
+
+<section class="hero bg-amber-100 text-center py-24 rounded-lg">
+        <div class="container mx-auto">
+            <h1 class="text-4xl font-bold">Find Your Dream Rental</h1>
+            <p class="text-xl mt-4">Explore our wide range of rental properties</p>
+            <form action="search.php" method="get" class="mt-8 flex items-center justify-center">
+                <div class="relative rounded-md shadow-md">
+                    <input type="text" name="location" placeholder="Enter Location" class="bg-white rounded-md p-4 pr-12 w-80 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                    <button type="submit" class="absolute right-3 top-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-amber-500 focus:ring-opacity-50">
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
 
 <main class="mt-14 mx-10">
 <div class="grid md:grid-rows-4 md:grid-cols-4 md:gap-3 sm:grid sm:grid-rows-5 sm:grid-cols-2 sm:items-center md:items-center lg:items-center">
@@ -153,31 +157,40 @@ session_start();
         <p class="font-light text-sm">5 Oct - 8 Oct</p>
         <p><span class="font-bold">₹97500</span> night</p>
     </div>
-    <div class="flex flex-col h-96 w-72">
-        <img src="images/hilton.jpeg" class="rounded-xl h-48" alt="img2">
-        <div class="flex justify-between mt-2">
-            <p class="text-sm font-bold">Hilton</p>
-            <p class="text-sm font-light">5.0</p>
-        </div>
-        <p class="text-sm font-light">Goa, India</p>
-        <p class="font-light text-sm">7 kilometres away</p>
-        <p class="font-light text-sm">5 Sep - 7 Sep</p>
-        <p><span class="font-bold">₹15000</span> night</p>
-    </div>
-    <div class="flex flex-col h-96 w-72">
-        <img src="images/munnar.jpeg" class="rounded-xl h-48" alt="img2">
-        <div class="flex justify-between mt-2">
-            <p class="text-sm font-bold">Blanket Hotel</p>
-            <p class="text-sm font-light">4.5</p>
-        </div>
-        <p class="text-sm font-light">Munnar, Kerela</p>
-        <p class="font-light text-sm">320 kilometres away</p>
-        <p class="font-light text-sm">2 Oct - 5 Oct</p>
-        <p><span class="font-bold">₹30500</span> night</p>
-    </div>
-</div>
-</main>
     
+</div>
+
+</main>
+<section class="additional-content bg-gray-100 py-20">
+        <div class="container mx-auto p-5">
+            <h2 class="text-2xl font-bold mb-5">Why Choose Renter?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-5 rounded-md shadow-md">
+                    <h3 class="text-lg font-semibold">Variety of Properties</h3>
+                    <p class="text-gray-600">Explore a wide range of rental properties, from cozy apartments to luxurious villas.</p>
+                </div>
+                <div class="bg-white p-5 rounded-md shadow-md">
+                    <h3 class="text-lg font-semibold">User-Friendly Interface</h3>
+                    <p class="text-gray-600">Our website is designed to make your property search easy and efficient.</p>
+                </div>
+                <div class="bg-white p-5 rounded-md shadow-md">
+                    <h3 class="text-lg font-semibold">Trusted Listings</h3>
+                    <p class="text-gray-600">All listings on Renter are verified to ensure your safety and satisfaction.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ... (footer section remains the same) ... -->
+</body>
+</html>
+
+
+
+
+
+
+
 
 <footer class="flex justify-between border-black fixed bottom-0 bg-white w-screen">
     <div class="flex flex-row space-x-3 h-12 px-10 items-center">
@@ -187,9 +200,9 @@ session_start();
         <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Terms</a>
     </div>
     <div class="flex flex-row items-center space-x-4 px-10">
+        <a href="../admin/admin.php" class="text-sm font-light underline text-amber-700 hover:text-amber-800">List</a>
         <img src="images/reshot-icon-globe-PL5973EKAD.svg" class="w-5" alt="the-globe">
-        <p class="text-sm">English</p>
-        <p class="text-sm">₹ (INR)</p>
+        
     </div>
 </footer>
 </body>

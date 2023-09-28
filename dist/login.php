@@ -12,11 +12,11 @@ include("database.php");
     <link rel="icon" href="images/fox-svgrepo-com.svg">
     <link rel="stylesheet" href="output.css">
 </head>
-<body class="font-body bg-sky-500 sm:bg-white">
+<body class="font-body sm:bg-white">
     <div class="p-2 m-0 w-full flex flex-row justify-between items-center">
        <div class="container flex flex-row items-center space-x-4">
         <img src="images/fox-svgrepo-com.svg" alt="logo" class="w-10 invisible sm:visible">
-        <a href="/" class="text-amber-700 text-2xl font-bold invisible sm:visible">Renter</a>
+        <a href="/" class="text-amber-700 text-body text-2xl font-bold invisible sm:visible">Renter</a>
        </div>
 
        <div class="mr-5">
@@ -37,8 +37,8 @@ include("database.php");
     </div>
    
     <div class="flex items-center justify-center min-h-screen ">
-        <div class="flex flex-row mx-auto h-auto w-1/2 shadow-2xl rounded-md border-black">
-            <div class="bg-white h-auto w-full flex flex-col justify-center md:w-1/2 md:ml-0 rounded-md  mb-10">
+        <div class="flex flex-row mx-auto w-1/2 shadow-2xl rounded-md border-black">
+            <div class="p-3 sm:p-0 bg-white mx-auto flex flex-col justify-center rounded-md">
                 <div class="flex flex-row space-x-2 mt-3 justify-center">
                     <img src="images/userfinal.svg" class="w-7" alt="user-logo">
                     <h2 class="font-bold text-xl">Login</h2>
@@ -72,6 +72,18 @@ include("database.php");
         </div>
     </div>
 </body>
+<footer class="flex justify-between border-black fixed bottom-0 bg-white w-screen">
+    <div class="flex flex-row space-x-3 h-12 px-10 items-center">
+        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1 underline">Renter Corp™️</a>
+        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Privacy</a>
+        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Jobs</a>
+        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Terms</a>
+    </div>
+    <div class="flex flex-row items-center space-x-4 px-10">
+        <img src="images/reshot-icon-globe-PL5973EKAD.svg" class="w-5" alt="the-globe">
+        
+    </div>
+</footer>
 <script src="script.js" defer></script>
 
 </html>

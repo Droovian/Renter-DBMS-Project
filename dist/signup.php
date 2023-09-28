@@ -50,6 +50,20 @@
 
 </div>
 
+<footer class="flex justify-between border-black fixed bottom-0 bg-transparent w-screen">
+    <div class="flex flex-row space-x-3 h-12 px-10 items-center">
+        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1 underline">Renter Corp™️</a>
+        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Privacy</a>
+        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Jobs</a>
+        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Terms</a>
+    </div>
+    <div class="flex flex-row items-center space-x-4 px-10">
+        <img src="images/reshot-icon-globe-PL5973EKAD.svg" class="w-5" alt="the-globe">
+        <p class="text-sm">English</p>
+        <p class="text-sm">₹ (INR)</p>
+    </div>
+</footer>
+
 </body>
 </html>
 
