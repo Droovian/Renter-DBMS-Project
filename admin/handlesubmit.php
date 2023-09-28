@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $image_path = "uploads/" . basename($image["name"]);
+        $image_path = "../dist/images/" . basename($image["name"]);
         move_uploaded_file($image["tmp_name"], $image_path);
 
         $sql = "INSERT INTO property_listings (property_name, property_type, rent_amount, description, name, contact_number, location, image_path)

@@ -10,13 +10,12 @@ include("database.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Renter</title>
     <link rel="icon" href="images/fox-svgrepo-com.svg">
-    <link rel="stylesheet" href="output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="font-body sm:bg-white">
+<body class="font-body sm:bg-gray-100">
     <div class="p-2 m-0 w-full flex flex-row justify-between items-center">
        <div class="container flex flex-row items-center space-x-4">
-        <img src="images/fox-svgrepo-com.svg" alt="logo" class="w-10 invisible sm:visible">
-        <a href="/" class="text-amber-700 text-body text-2xl font-bold invisible sm:visible">Renter</a>
+        <a href="/" class="font-body ml-4 text-2xl font-semibold invisible sm:visible">Renter</a>
        </div>
 
        <div class="mr-5">
@@ -36,9 +35,9 @@ include("database.php");
 
     </div>
    
-    <div class="flex items-center justify-center min-h-screen ">
-        <div class="flex flex-row mx-auto w-1/2 shadow-2xl rounded-md border-black">
-            <div class="p-3 sm:p-0 bg-white mx-auto flex flex-col justify-center rounded-md">
+    <div class="bg-gray-100 flex items-center justify-center min-h-screen ">
+        <div class="bg-gray-100 flex flex-row mx-auto w-1/2 shadow-2xl rounded-md border-black">
+            <div class="p-3 sm:p-0 bg-gray-100 flex flex-col justify-center rounded-md">
                 <div class="flex flex-row space-x-2 mt-3 justify-center">
                     <img src="images/userfinal.svg" class="w-7" alt="user-logo">
                     <h2 class="font-bold text-xl">Login</h2>
@@ -48,9 +47,9 @@ include("database.php");
                 <div class="flex flex-col space-y-3 mt-2 p-2">
                     <form action="login.php" class="flex flex-col space-y-3" method="post">
                     <label for="" class="">Email</label>
-                    <input type="email" class="p-1 w-60 mx-auto border-2 border-grey-700 items-center" placeholder="Email" name="email" autocomplete="off" required>
+                    <input type="email" class="p-1 w-60 mx-auto border rounded-md focus:outline-none focus:border-blue-500" placeholder="Email" name="email" autocomplete="off" required>
                     <label for="" class="">Password</label>
-                    <input type="password" class="p-1 w-60 mx-auto border-2 border-grey-700" placeholder="Password" name="password" autocomplete="off" required>
+                    <input type="password" class="p-1 w-60 mx-auto border rounded-md focus:outline-none focus:border-blue-500" placeholder="Password" name="password" autocomplete="off" required>
                     <div class="flex flex-col justify-between space-y-3 items-center p-2  md:flex-row md:items-center">
                         <div class="flex items-center space-x-2 md:mr-24 ">
                             <input type="checkbox" name="cb" id="cb">
@@ -60,15 +59,15 @@ include("database.php");
                         <a href="resetpassword.php"class="text-xs font-light md:text-center p-2 hover:cursor-pointer">Forgot Password</a>
                              
                     </div>
-                    <input type="submit" name="login" value="Log In" class="bg-black text-white text-center rounded-lg hover:bg-white hover:text-black md:w-1/2 mx-auto p-2">
+                    <input type="submit" name="login" value="Log In" class="bg-black text-white text-center rounded-lg hover:bg-gray-100 hover:text-black md:w-1/2 mx-auto p-2">
                 </form>
                 </div>
             
-                <a href="signup.php" class="relative text-white bg-black mt-3 hover:text-black hover:bg-white text-center rounded-lg mx-auto md:w-1/2 p-2">Sign Up</a>
+                <a href="signup.php" class="relative text-white bg-black mt-3 hover:text-black hover:bg-gray-100 text-center rounded-lg mx-auto md:w-1/2 p-2">Sign Up</a>
             
             </div>
     
-            <img src="images/mountaing.jpg" alt="maldives image" class="invisible sm:invisible md:visible h-auto w-1/2 rounded-md">
+            <img src="images/mountaing.jpg" alt="mountain-img" class="ml-auto invisible sm:invisible md:visible h-auto w-1/2 md:object-cover lg:object-cover rounded-md">
         </div>
     </div>
 </body>

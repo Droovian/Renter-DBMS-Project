@@ -1,5 +1,6 @@
 <?php
 session_start();
+include("database.php");
 
 ?>
 
@@ -34,133 +35,55 @@ session_start();
             <h1 class="text-4xl font-bold">Find Your Dream Rental</h1>
             <p class="text-xl mt-4">Explore our wide range of rental properties</p>
             <form action="search.php" method="get" class="mt-8 flex items-center justify-center">
-                <div class="relative rounded-md shadow-md">
-                    <input type="text" name="location" placeholder="Enter Location" class="bg-white rounded-md p-4 pr-12 w-80 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
-                    <button type="submit" class="absolute right-3 top-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-amber-500 focus:ring-opacity-50">
-                        Search
-                    </button>
+                <div class="relative rounded-md shadow-md flex">
+                <input type="text" name="location" placeholder="Enter Location" class="bg-white rounded-md p-4 pr-12 w-80 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent flex-grow">
+                 <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-amber-500 focus:ring-opacity-50">
+                  Search
+                </button>
                 </div>
             </form>
+
         </div>
     </section>
 
-<main class="mt-14 mx-10">
-<div class="grid md:grid-rows-4 md:grid-cols-4 md:gap-3 sm:grid sm:grid-rows-5 sm:grid-cols-2 sm:items-center md:items-center lg:items-center">
-    <div class="flex flex-col h-96 w-72">
-        <img src="images/download.jpeg" class="rounded-xl" alt="img1">
-        <div class="flex justify-between mt-2">
-            <p class="text-sm font-bold">Whispering Pines</p>
-            <i class="fa-solid fa-star"></i>
-            <p class="text-sm font-light">4.0</p>
-        </div>
-        <p class="text-sm font-light">Jibhi, India</p>
-        <p class="text-sm font-light">62 kilometres away</p>
-        <p class="text-sm font-light">17 Aug - 21 Aug</p>
-        <p><span class="font-bold">₹11500</span> night</p>
-    </div>
-    <div class="flex flex-col h-96 w-72">
-        <img src="images/img2.jpeg" class="rounded-xl h-48" alt="img2">
-        <div class="flex justify-between mt-2">
-            <p class="text-sm font-bold">The Vintage</p>
-            <p class="text-sm font-light">4.0</p>
-        </div>
-        <p class="text-sm font-light">Srinagar, India</p>
-        <p class="font-light text-sm">86 kilometres away</p>
-        <p class="font-light text-sm">20 Aug - 23 Aug</p>
-        <p><span class="font-bold">₹28000</span> night</p>
-    </div>
-    <div class="flex flex-col h-96 w-72">
-        <img src="images/img3.jpeg" class="rounded-xl h-48" alt="img2">
-        <div class="flex justify-between mt-2">
-            <p class="font-bold text-sm">JW Marriott</p>
-            <p class="text-sm font-light">5.0</p>
-        </div>
-        <p class="text-sm font-light">Goa, India</p>
-        <p class="font-light text-sm">30 kilometres away</p>
-        <p class="font-light text-sm">25 Aug - 27 Aug</p>
-        <p><span class="font-bold">₹60000</span> night</p>
-    </div>
-    <div class="flex flex-col h-96 w-72">
-        <img src="images/alila.jpeg" class="rounded-xl h-48" alt="img2">
-        <div class="flex justify-between mt-2">
-            <p class="text-sm font-bold">Alila Diwa Goa</p>
-            <p class="text-sm font-light">5.0</p>
-        </div>
-        <p class="text-sm font-light">Goa, India</p>
-        <p class="font-light text-sm">20 kilometres away</p>
-        <p class="font-light text-sm">15 Aug - 16 Aug</p>
-        <p><span class="font-bold">₹48000</span> night</p>
-    </div>
-    <div class="flex flex-col h-96 w-72">
-        <img src="images/maldive.jpeg" class="rounded-xl h-48" alt="img2">
-        <div class="flex justify-between mt-2">
-            <p class="text-sm font-bold">The Intercontinental</p>
-            <p class="text-sm font-light">4.0</p>
-        </div>
-        <p class="text-sm font-light">Maldives</p>
-        <p class="font-light text-sm">132 kilometres away</p>
-        <p class="font-light text-sm">1 Sep - 3 Sep</p>
-        <p><span class="font-bold">₹70000</span> night</p>
-    </div>
-    <div class="flex flex-col h-96 w-72">
-        <img src="images/himalayan.jpeg" class="rounded-xl h-48" alt="img2">
-        <div class="flex justify-between mt-2">
-            <p class="text-sm font-bold">Himalayan Cedar</p>
-            <p class="text-sm font-light">2.5</p>
-        </div>
-        <p class="text-sm font-light">Himachal Pradesh</p>
-        <p class="font-light text-sm">231 kilometres away</p>
-        <p class="font-light text-sm">12 Sep - 14 Sep</p>
-        <p><span class="font-bold">₹9500</span> night</p>
-    </div>
-    <div class="flex flex-col h-96 w-72">
-        <img src="images/udaipur.jpeg" class="rounded-xl h-48" alt="img2">
-        <div class="flex justify-between mt-2">
-            <p class="text-sm font-bold">Radisson Blu Palace</p>
-            <p class="text-sm font-light">5.0</p>
-        </div>
-        <p class="text-sm font-light">Udaipur, Rajasthan</p>
-        <p class="font-light text-sm">50 kilometres away</p>
-        <p class="font-light text-sm">12 Sep - 14 Sep</p>
-        <p><span class="font-bold">₹29500</span> night</p>
-    </div>
-    <div class="flex flex-col h-96 w-72">
-        <img src="images/lalit.jpeg" class="rounded-xl h-48" alt="img2">
-        <div class="flex justify-between mt-2">
-            <p class="text-sm font-bold">The LaLit</p>
-            <p class="text-sm font-light">4.0</p>
-        </div>
-        <p class="text-sm font-light">Mumbai, India</p>
-        <p class="font-light text-sm">15 kilometres away</p>
-        <p class="font-light text-sm">21 Sep - 24 Sep</p>
-        <p><span class="font-bold">₹37500</span> night</p>
-    </div>
-    <div class="flex flex-col h-96 w-72">
-        <img src="images/lemeridien.jpeg" class="rounded-xl h-48" alt="img2">
-        <div class="flex justify-between mt-2">
-            <p class="text-sm font-bold">Le Meridien</p>
-            <p class="text-sm font-light">5.0</p>
-        </div>
-        <p class="text-sm font-light">Hyderabad, India</p>
-        <p class="font-light text-sm">70 kilometres away</p>
-        <p class="font-light text-sm">20 Sep - 22 Sep</p>
-        <p><span class="font-bold">₹17500</span> night</p>
-    </div>
-    <div class="flex flex-col h-96 w-72">
-        <img src="images/leela.jpeg" class="rounded-xl h-48" alt="img2">
-        <div class="flex justify-between mt-2">
-            <p class="text-sm font-bold">The Leela Palace</p>
-            <p class="text-sm font-light">5.0</p>
-        </div>
-        <p class="text-sm font-light">Bengaluru, Karnataka</p>
-        <p class="font-light text-sm">80 kilometres away</p>
-        <p class="font-light text-sm">5 Oct - 8 Oct</p>
-        <p><span class="font-bold">₹97500</span> night</p>
-    </div>
-    
-</div>
+    <?php
+$sql = "SELECT * FROM property_listings";
 
-</main>
+$get_properties = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($get_properties) > 0) {
+    echo "<main class='mt-14 mx-10'>";
+    echo "<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>";
+    
+    while ($property_data = mysqli_fetch_assoc($get_properties)) {
+        $name = $property_data['property_name'];
+        $location = $property_data['location'];
+        $description = $property_data["description"];
+        $imagepath = $property_data['image_path'];
+        $rent_amount = $property_data['rent_amount'];
+        
+        echo "
+        <div class='bg-white rounded-lg shadow-md'>
+            <img src='$imagepath' alt='Property Image' class='rounded-t-lg w-full h-64 object-cover'>
+            <div class='p-4'>
+                <p class='text-xl font-semibold'>$name</p>
+                <p class='text-gray-600'>$location</p>
+                <p class='text-sm mt-2'>$description</p>
+                <p class='text-xl font-bold mt-4'>₹$rent_amount per night</p>
+            </div>
+        </div>";
+    }
+    
+    echo "</div>";
+    echo "</main>";
+} else {
+    echo "No properties found in the database";
+}
+?>
+
+   
+
+
 <section class="additional-content bg-gray-100 py-20">
         <div class="container mx-auto p-5">
             <h2 class="text-2xl font-bold mb-5">Why Choose Renter?</h2>
@@ -180,6 +103,76 @@ session_start();
             </div>
         </div>
     </section>
+
+    <section class="customer-reviews bg-gray-200 py-20 mb-10">
+    <div class="container mx-auto p-5">
+        <h2 class="text-2xl font-bold mb-5">Customer Reviews</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Review 1 -->
+            <div class="bg-gray-100 p-5 rounded-md shadow-md">
+                <div class="flex items-center space-x-4">
+                    <!-- Customer Image (Replace 'customer-image.jpg' with the actual image URL) -->
+                    <img src="../dist/images/userfinal.svg" alt="Customer Image" class="h-16 w-16 rounded-full">
+
+                    <!-- Customer Review Content -->
+                    <div>
+                        <h3 class="text-lg font-semibold">John Doe</h3>
+                        <p class="text-gray-600">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod diam at bibendum."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 2 (Repeat structure as needed) -->
+            <div class="bg-gray-100 p-5 rounded-md shadow-md">
+                <div class="flex items-center space-x-4">
+                    <img src="../dist/images/userfinal.svg" alt="Customer Image" class="h-16 w-16 rounded-full">
+                    <div>
+                        <h3 class="text-lg font-semibold">Jane Smith</h3>
+                        <p class="text-gray-600">"Sed ullamcorper tellus vel finibus. Nunc nec eleifend velit."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 3 (Repeat structure as needed) -->
+            <div class="bg-gray-100 p-5 rounded-md shadow-md">
+                <div class="flex items-center space-x-4">
+                    <img src="../dist/images/userfinal.svg" alt="Customer Image" class="h-16 w-16 rounded-full">
+                    <div>
+                        <h3 class="text-lg font-semibold">Sarah Johnson</h3>
+                        <p class="text-gray-600">"Vestibulum vehicula lacus nec nunc hendrerit, ac volutpat tellus laoreet."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-100 p-5 rounded-md shadow-md">
+                <div class="flex items-center space-x-4">
+                    <img src="../dist/images/userfinal.svg" alt="Customer Image" class="h-16 w-16 rounded-full">
+                    <div>
+                        <h3 class="text-lg font-semibold">Walden</h3>
+                        <p class="text-gray-600">"Sed ullamcorper tellus vel finibus. Nunc nec eleifend velit."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-100 p-5 rounded-md shadow-md">
+                <div class="flex items-center space-x-4">
+                    <img src="../dist/images/userfinal.svg" alt="Customer Image" class="h-16 w-16 rounded-full">
+                    <div>
+                        <h3 class="text-lg font-semibold">Emily Anderson</h3>
+                        <p class="text-gray-600">"Lorem, ipsum dolor sit amet consectetur adipisicing elit..."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-100 p-5 rounded-md shadow-md">
+                <div class="flex items-center space-x-4">
+                    <img src="../dist/images/userfinal.svg" alt="Customer Image" class="h-16 w-16 rounded-full">
+                    <div>
+                        <h3 class="text-lg font-semibold">Marques Joe</h3>
+                        <p class="text-gray-600">"Sed ullamcorper tellus vel finibus. Nunc nec eleifend velit."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- ... (footer section remains the same) ... -->
 </body>

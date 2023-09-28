@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link rel="icon" href="images/fox-svgrepo-com.svg">
-    <link rel="stylesheet" href="output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="font-body bg-amber-500 sm:bg-gradient-to-t from-orange-400 to-sky-400">
 <p class="text-red-500 text-xl font-light text-center"><?php echo $_SESSION["duplicate"]; ?></p>
@@ -26,11 +26,11 @@
                 <div class="flex flex-col space-y-3 mt-2 p-2">
                     <form action="submitotp.php" class="flex flex-col space-y-3" method="post">
                     <label for="" class="">Name</label>
-                    <input type="name" class="p-1 w-60 mx-auto border-2 border-grey-700" placeholder="Enter your name" name="name" autocomplete="off" required>
+                    <input type="name" class="p-1 w-60 mx-auto border rounded-md focus:outline-none focus:border-blue-500" placeholder="Enter your name" name="name" autocomplete="off" required>
                     <label for="" class="">Email</label>
-                    <input type="email" class="p-1 w-60 mx-auto border-2 border-grey-700" placeholder="Email" name="email" autocomplete="off" required>
+                    <input type="email" class="p-1 w-60 mx-auto border rounded-md focus:outline-none focus:border-blue-500" placeholder="Email" name="email" autocomplete="off" required>
                     <label for="" class="">Password</label>
-                    <input type="password" class="p-1 w-60 mx-auto border-2 border-grey-700" placeholder="Password" name="password" autocomplete="off" required>
+                    <input type="password" class="p-1 w-60 mx-auto border rounded-md focus:outline-none focus:border-blue-500" placeholder="Password" name="password" autocomplete="off" required>
                     <input type="hidden" name="otp">
                     <div class="flex justify-between items-center p-2">
                         <div class="mr-24 mt-2 flex space-x-2">
@@ -52,10 +52,10 @@
 
 <footer class="flex justify-between border-black fixed bottom-0 bg-transparent w-screen">
     <div class="flex flex-row space-x-3 h-12 px-10 items-center">
-        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1 underline">Renter Corp™️</a>
-        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Privacy</a>
-        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Jobs</a>
-        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Terms</a>
+        <a href="#" class="text-sm  hover:underline-offset-1 underline">Renter Corp™️</a>
+        <a href="#" class="text-sm  hover:underline-offset-1  underline">Privacy</a>
+        <a href="#" class="text-sm  hover:underline-offset-1  underline">Jobs</a>
+        <a href="#" class="text-sm  hover:underline-offset-1  underline">Terms</a>
     </div>
     <div class="flex flex-row items-center space-x-4 px-10">
         <img src="images/reshot-icon-globe-PL5973EKAD.svg" class="w-5" alt="the-globe">
