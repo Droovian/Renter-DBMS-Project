@@ -2,6 +2,39 @@
 session_start();
 include("database.php");
 
+function getPropertyListings($conn, $searchLocation = null) {
+    $sql = "SELECT * FROM property_listings";
+    $params = [];
+
+    if ($searchLocation !== null) {
+        $sql .= " WHERE location LIKE ?";
+        $params[] = '%' . $searchLocation . '%';
+    }
+
+    $stmt = mysqli_prepare($conn, $sql);
+
+    if (!$stmt) {
+        die("Error: " . mysqli_error($conn));
+    }
+
+    if (!empty($params)) {
+        $paramTypes = str_repeat('s', count($params));
+        mysqli_stmt_bind_param($stmt, $paramTypes, ...$params);
+    }
+
+    mysqli_stmt_execute($stmt);
+    $getprops = mysqli_stmt_get_result($stmt);
+
+    if (!$getprops) {
+        die("Error: " . mysqli_error($conn));
+    }
+
+    return $getprops;
+}
+
+$searchLocation = isset($_GET['location']) ? $_GET['location'] : null;
+$getprops = getPropertyListings($conn, $searchLocation);
+
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +51,7 @@ include("database.php");
     <div class="flex flex-row">
     <div class="flex flex-row space-x-3 w-full h-auto p-2">
         <div class="mt-3 text-black p-2 mr-8">
-            <h1 class="font-bold font-body text-3xl mx-5">Renter</h1>
+            <a href="index.php" class="font-bold font-body text-3xl mx-5">Renter</a>
         </div>
     </div>
     
@@ -34,28 +67,23 @@ include("database.php");
         <div class="container mx-auto">
             <h1 class="text-4xl font-bold">Find Your Dream Rental</h1>
             <p class="text-xl mt-4">Explore our wide range of rental properties</p>
-            <form action="search.php" method="get" class="mt-8 flex items-center justify-center">
+            <form action="index.php" method="get" class="mt-8 flex items-center justify-center">
                 <div class="relative rounded-md shadow-md flex">
-                <input type="text" name="location" placeholder="Enter Location" autocomplete="off" class="bg-white rounded-md p-4 pr-12 w-80 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent flex-grow">
+                <input type="text" name="location" placeholder="Enter Location" autocomplete="off" required class="bg-white rounded-md p-4 pr-12 w-80 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent flex-grow">
                  <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-amber-500 focus:ring-opacity-50">
                   Search
                 </button>
                 </div>
             </form>
-
         </div>
     </section>
 
-    <?php
-$sql = "SELECT * FROM property_listings";
-
-$get_properties = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($get_properties) > 0) {
+<?php
+if (mysqli_num_rows($getprops) > 0) {
     echo "<main class='mt-14 mx-10'>";
     echo "<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>";
-    
-    while ($property_data = mysqli_fetch_assoc($get_properties)) {
+
+    while ($property_data = mysqli_fetch_assoc($getprops)) {
         $name = $property_data['property_name'];
         $location = $property_data['location'];
         $description = $property_data["description"];
@@ -73,16 +101,16 @@ if (mysqli_num_rows($get_properties) > 0) {
             </div>
         </div>";
     }
-    
     echo "</div>";
     echo "</main>";
 } else {
-    echo "No properties found in the database";
+    echo '<div class="flex flex-col items-center justify-center h-96">';
+    echo '<h1 class="text-4xl font-bold text-center mb-4">No Properties Found</h1>';
+    echo '<p class="text-lg text-gray-600 text-center">Sorry, we couldn\'t find any properties for the location you entered.</p>';
+    echo '</div>';
 }
+mysqli_close($conn);
 ?>
-
-   
-
 
 <section class="additional-content bg-gray-100 py-20">
         <div class="container mx-auto p-5">
@@ -182,6 +210,8 @@ if (mysqli_num_rows($get_properties) > 0) {
         
     </div>
 </footer>
+
+
 </body>
 </html>
-<script src="fetch.js" defer></script>
+
