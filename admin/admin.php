@@ -1,20 +1,17 @@
 <?php
 session_start();
 
+if(isset($_SESSION['error-messages'])){
+    $errors = $_SESSION['error-messages'];
 
-// Check for error messages
-if (isset($_SESSION['error_messages'])) {
-    $errors = $_SESSION['error_messages'];
-    echo '<div class="bg-red-200 p-2 mb-4">';
+    echo '<div class="text-red-600 font-bold text-center p-2 mb-4">';
     foreach ($errors as $error) {
         echo '<p>' . $error . '</p>';
     }
     echo '</div>';
-    unset($_SESSION['error_messages']); // Remove the error messages from the session
+    unset($_SESSION['error-messages']);
 }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,19 +24,11 @@ if (isset($_SESSION['error_messages'])) {
 </head>
 <body class="bg-gray-100 p-10">
 
-    <p class="text-center text-red-600 text-xl font-bold p-2 mb-4">
+    <p class="text-center text-green-600 text-xl font-bold p-2 mb-4">
         <?php 
         if(isset($_SESSION['success-message'])){
             echo $_SESSION['success-message'];
             unset($_SESSION['success-message']);
-        }
-        else if(isset($_SESSION['error-messages'])){
-            $errors = $_SESSION['error-messages'];
-
-            foreach($errors as $error){
-                echo $error;
-            }
-            unset($_SESSION['error-message']);
         }
         ?>
     </p>

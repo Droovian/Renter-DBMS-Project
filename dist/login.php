@@ -3,6 +3,48 @@
 include("database.php");
 
 ?>
+
+<?php
+$err_msg = "Either Email entered or Password was incorrect.";
+
+    if(isset($_POST['login'])){
+        $users_email = $_POST['email'];
+        $users_password = $_POST['password'];
+
+        $sql = "SELECT * FROM finalusers WHERE Email = '$users_email'";
+
+        $query_result = mysqli_query($conn, $sql);
+
+        if(mysqli_num_rows($query_result) > 0){
+            $user_data = mysqli_fetch_assoc($query_result);
+
+            $email_db = $user_data["Email"];
+            $pass_db = $user_data["password"];
+
+            if(($users_email == $email_db) && password_verify($users_password, $pass_db)){
+                header("location: index.php");
+                exit();
+            }
+
+            else{
+                echo '<script>
+                alert("Either Email or Password is Incorrect");
+                window.location.href = "login.php";
+                </script>';
+            }
+
+            try{
+                mysqli_query($conn, $sql);
+            }
+            catch(mysqli_sql_exception){
+                echo "Login failed";
+                exit();
+            }
+        }
+        mysqli_close($conn);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,7 +113,7 @@ include("database.php");
         </div>
     </div>
 </body>
-<footer class="flex justify-between border-black fixed bottom-0 bg-white w-screen">
+<footer class="invisible sm:visible flex justify-between border-black fixed bottom-0 bg-white w-screen">
     <div class="flex flex-row space-x-3 h-12 px-10 items-center">
         <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1 underline">Renter Corp™️</a>
         <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Privacy</a>
@@ -88,47 +130,3 @@ include("database.php");
 </html>
 
 
-<?php
-
-$err_msg = "Either Email entered or Password was incorrect.";
-    if(isset($_POST['login'])){
-        $users_email = $_POST['email'];
-        $users_password = $_POST['password'];
-
-        $sql = "SELECT * FROM finalusers WHERE Email = '$users_email'";
-
-        $query_result = mysqli_query($conn, $sql);
-
-        if(mysqli_num_rows($query_result) > 0){
-            $user_data = mysqli_fetch_assoc($query_result);
-
-            $email_db = $user_data["Email"];
-            $pass_db = $user_data["password"];
-            
-          
-            // $pass_verifier = password_verify($users_password, $pass_db);
-
-            if(($users_email == $email_db) && password_verify($users_password, $pass_db)){
-                header("Location: index.php");
-                echo "Successful!";
-            }
-            else{
-                echo '<script>
-                alert("Either Email or Password is Incorrect");
-                window.location.href("login.php");
-                </script>';
-            }
-
-            try{
-                mysqli_query($conn, $sql);
-            }
-            catch(mysqli_sql_exception){
-                echo "Login failed";
-                exit();
-            }
-        }
-        mysqli_close($conn);
-    }
-
-   
-?>

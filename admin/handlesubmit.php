@@ -9,24 +9,7 @@ require '../dist/phpmailer/src/SMTP.php';
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Handle Submission</title>
-    <link rel="icon" href="../dist/images/fox-svgrepo-com.svg">
-</head>
-<body>
-    
-</body>
-</html>
-
 <?php
-
-
-
-
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $errors = [];
 
@@ -113,11 +96,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     } 
     else {
-        foreach ($errors as $error) {
-            echo "<p>$error</p>";
-        }
+        $_SESSION['error-messages'] = $errors;
     }
-
     header("Location: admin.php");
     exit();
     
@@ -125,3 +105,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     echo "Form not submitted.";
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handle Submission</title>
+    <link rel="icon" href="../dist/images/fox-svgrepo-com.svg">
+</head>
+<body>
+    
+</body>
+</html>
+

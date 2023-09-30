@@ -30,13 +30,13 @@ include("database.php");
     </div>
 </div>
 
-<section class="hero bg-amber-100 text-center py-24 rounded-lg">
+<section class="hero bg-[url('../dist/images/pano.jpg')] bg-cover text-center py-24">
         <div class="container mx-auto">
             <h1 class="text-4xl font-bold">Find Your Dream Rental</h1>
             <p class="text-xl mt-4">Explore our wide range of rental properties</p>
             <form action="search.php" method="get" class="mt-8 flex items-center justify-center">
                 <div class="relative rounded-md shadow-md flex">
-                <input type="text" name="location" placeholder="Enter Location" class="bg-white rounded-md p-4 pr-12 w-80 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent flex-grow">
+                <input type="text" name="location" placeholder="Enter Location" autocomplete="off" class="bg-white rounded-md p-4 pr-12 w-80 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent flex-grow">
                  <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-amber-500 focus:ring-opacity-50">
                   Search
                 </button>
@@ -63,8 +63,8 @@ if (mysqli_num_rows($get_properties) > 0) {
         $rent_amount = $property_data['rent_amount'];
         
         echo "
-        <div class='bg-white rounded-lg shadow-md'>
-            <img src='$imagepath' alt='Property Image' class='rounded-t-lg w-full h-64 object-cover'>
+        <div class='bg-white rounded-lg shadow-md transform transition-transform duration-300 hover:scale-105'>
+            <img src='$imagepath' alt='Property Image' class='rounded-t-lg w-full h-64  object-cover'>
             <div class='p-4'>
                 <p class='text-xl font-semibold'>$name</p>
                 <p class='text-gray-600'>$location</p>
@@ -108,13 +108,10 @@ if (mysqli_num_rows($get_properties) > 0) {
     <div class="container mx-auto p-5">
         <h2 class="text-2xl font-bold mb-5">Customer Reviews</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Review 1 -->
             <div class="bg-gray-100 p-5 rounded-md shadow-md">
                 <div class="flex items-center space-x-4">
-                    <!-- Customer Image (Replace 'customer-image.jpg' with the actual image URL) -->
                     <img src="../dist/images/userfinal.svg" alt="Customer Image" class="h-16 w-16 rounded-full">
 
-                    <!-- Customer Review Content -->
                     <div>
                         <h3 class="text-lg font-semibold">John Doe</h3>
                         <p class="text-gray-600">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod diam at bibendum."</p>
@@ -122,7 +119,6 @@ if (mysqli_num_rows($get_properties) > 0) {
                 </div>
             </div>
 
-            <!-- Review 2 (Repeat structure as needed) -->
             <div class="bg-gray-100 p-5 rounded-md shadow-md">
                 <div class="flex items-center space-x-4">
                     <img src="../dist/images/userfinal.svg" alt="Customer Image" class="h-16 w-16 rounded-full">
@@ -133,7 +129,6 @@ if (mysqli_num_rows($get_properties) > 0) {
                 </div>
             </div>
 
-            <!-- Review 3 (Repeat structure as needed) -->
             <div class="bg-gray-100 p-5 rounded-md shadow-md">
                 <div class="flex items-center space-x-4">
                     <img src="../dist/images/userfinal.svg" alt="Customer Image" class="h-16 w-16 rounded-full">
@@ -174,17 +169,6 @@ if (mysqli_num_rows($get_properties) > 0) {
     </div>
 </section>
 
-    <!-- ... (footer section remains the same) ... -->
-</body>
-</html>
-
-
-
-
-
-
-
-
 <footer class="flex justify-between border-black fixed bottom-0 bg-white w-screen">
     <div class="flex flex-row space-x-3 h-12 px-10 items-center">
         <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1 underline">Renter Corp™️</a>
@@ -201,14 +185,3 @@ if (mysqli_num_rows($get_properties) > 0) {
 </body>
 </html>
 <script src="fetch.js" defer></script>
-
-<?php
-    // echo $_SESSION["email"] . "<br>";
-    // echo $_SESSION["password"] . "<br>";
-
-    if(isset($_POST["logout"])){
-         session_destroy();
-        // header("Location: login.php");
-    }
-    
-?>
