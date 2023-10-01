@@ -97,6 +97,7 @@ function send_password_reset($name, $email_id, $token)
 
 if(isset($_POST['updatepass'])){
 
+$count = 0;
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $new_password = mysqli_real_escape_string($conn, $_POST['newpassword']);
     $confirm_pass = mysqli_real_escape_string($conn, $_POST['confirmpassword']);
@@ -134,6 +135,7 @@ if(isset($_POST['updatepass'])){
                     header("Location: changepassword.php?token=$pass_token&email=$email");
                     $_SESSION['status'] = 'Passwords did not match';
                     exit(0);
+                    
                 }
             }
             else{

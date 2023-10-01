@@ -2,13 +2,19 @@
 session_start();
 include("database.php");
 
-function getPropertyListings($conn, $searchLocation = null) {
-    $sql = "SELECT * FROM property_listings";
+function getPropertyListings($conn, $searchLocation = null, $propertyType = null) {
+    $sql = "SELECT * FROM property_listings WHERE 1=1"; // Start with a valid SQL query
+
     $params = [];
 
     if ($searchLocation !== null) {
-        $sql .= " WHERE location LIKE ?";
+        $sql .= " AND location LIKE ?";
         $params[] = '%' . $searchLocation . '%';
+    }
+
+    if ($propertyType !== null && $propertyType !== "") { // Check if property type is not empty
+        $sql .= " AND property_type = ?";
+        $params[] = $propertyType;
     }
 
     $stmt = mysqli_prepare($conn, $sql);
@@ -33,9 +39,10 @@ function getPropertyListings($conn, $searchLocation = null) {
 }
 
 $searchLocation = isset($_GET['location']) ? $_GET['location'] : null;
-$getprops = getPropertyListings($conn, $searchLocation);
-
+$propertyType = isset($_GET['property_type']) ? $_GET['property_type'] : null;
+$getprops = getPropertyListings($conn, $searchLocation, $propertyType);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -68,8 +75,14 @@ $getprops = getPropertyListings($conn, $searchLocation);
             <h1 class="text-4xl font-bold">Find Your Dream Rental</h1>
             <p class="text-xl mt-4">Explore our wide range of rental properties</p>
             <form action="index.php" method="get" class="mt-8 flex items-center justify-center">
-                <div class="relative rounded-md shadow-md flex">
-                <input type="text" name="location" placeholder="Enter Location" autocomplete="off" required class="bg-white rounded-md p-4 pr-12 w-80 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent flex-grow">
+                <div class="relative rounded-md shadow-md flex space-x-1">
+                     <input type="text" name="location" placeholder="Enter Location" autocomplete="off" required class="bg-white rounded-md p-4 pr-12 w-80 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent flex-grow">
+                     <select name="property_type" class="bg-white text-gray-400 rounded-md p-4 pr-2 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                     <option value="">Property Type</option>
+                     <option value="Apartment">Apartment</option>
+                     <option value="House">House</option>
+                     <option value="Condo">Condo</option>
+                     </select>
                  <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-amber-500 focus:ring-opacity-50">
                   Search
                 </button>
@@ -84,6 +97,7 @@ if (mysqli_num_rows($getprops) > 0) {
     echo "<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>";
 
     while ($property_data = mysqli_fetch_assoc($getprops)) {
+        $propertyID = $property_data['id'];
         $name = $property_data['property_name'];
         $location = $property_data['location'];
         $description = $property_data["description"];
@@ -91,7 +105,7 @@ if (mysqli_num_rows($getprops) > 0) {
         $rent_amount = $property_data['rent_amount'];
         
         echo "
-        <div class='bg-white rounded-lg shadow-md transform transition-transform duration-300 hover:scale-105'>
+        <div class='bg-white rounded-lg shadow-md relative'>
             <img src='$imagepath' alt='Property Image' class='rounded-t-lg w-full h-64  object-cover'>
             <div class='p-4'>
                 <p class='text-xl font-semibold'>$name</p>
@@ -99,6 +113,9 @@ if (mysqli_num_rows($getprops) > 0) {
                 <p class='text-sm mt-2'>$description</p>
                 <p class='text-xl font-bold mt-4'>₹$rent_amount per night</p>
             </div>
+            <button class='absolute bottom-4 right-4 bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-amber-500 focus:ring-opacity-50'>
+            <a href='../bookings/booking.php?property_id=$propertyID'>Rent</a>
+    </button>
         </div>";
     }
     echo "</div>";

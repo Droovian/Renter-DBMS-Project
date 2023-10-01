@@ -36,10 +36,16 @@ $err_msg = "Either Email entered or Password was incorrect.";
             try{
                 mysqli_query($conn, $sql);
             }
-            catch(mysqli_sql_exception){
+            catch(mysqli_sql_exception $e){
                 echo "Login failed";
                 exit();
             }
+        }
+        else{
+            echo '<script>
+            alert("You are not registered. Please sign up first.");
+            window.location.href = "login.php"; // Replace with the registration page URL
+            </script>';
         }
         mysqli_close($conn);
     }
