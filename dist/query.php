@@ -10,7 +10,7 @@ include("database.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Query</title>
     <link rel="icon" href="images/fox-svgrepo-com.svg">
 </head>
 <body>
@@ -44,9 +44,9 @@ if(!$result){
         $final_name = $row["Name"];
         $final_email = $row["Email"];
         $final_password = $row["password"];
-
-        $sql = "INSERT INTO finalusers (Name, Email, password)
-                VALUES ('$final_name', '$final_email', '$final_password')";
+        $final_phone = $row["phone_no"];
+        $sql = "INSERT INTO finalusers (Name, Email, password, phone_no)
+                VALUES ('$final_name', '$final_email', '$final_password', '$final_phone')";
 
     try{
         mysqli_query($conn, $sql);
