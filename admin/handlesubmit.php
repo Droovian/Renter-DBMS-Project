@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include("../dist/database.php");
 use PHPMailer\PHPMailer\PHPMailer;

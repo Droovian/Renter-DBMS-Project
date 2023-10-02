@@ -26,7 +26,9 @@ if ($propertyID !== null) {
         echo "Error: " . mysqli_error($conn);
     }
 } else {
-    echo "Invalid property ID.";
+    echo "
+    <p class='flex justify-between font-body'>Invalid property ID.</p>
+    ";
 }
 
 // Close the database connection
@@ -43,11 +45,41 @@ mysqli_close($conn);
     <title>Renter - Booking Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<style>
+        /* Sidebar styles */
+        .sidebar {
+            width: 260px;
+        }
+        .sidebar ul {
+            list-style: none;
+        }
+        .sidebar li {
+            padding: 10px 20px;
+            border-left: 3px solid transparent;
+        }
+        .sidebar li:hover {
+            background-color: #F3F4F6;
+            border-left-color: #F59E0B;
+        }
+    </style>
+
 <body class="bg-gray-100">
 
+<div class="sidebar bg-white h-screen fixed top-0 left-0 overflow-y-auto">
+        <ul>
+            <li class="text-xl font-body hover:text-amber-500">
+                <a href="../admin/adminlogin.php">Admin</a>
+            </li>
+            <li class="text-xl font-body hover:text-amber-500">
+                <a href="../dist/index.php">Back to home</a>
+            </li>
+            <!-- Add other sidebar links here -->
+        </ul>
+       
+    </div>
     <section class="container max-w-md mx-auto mt-8 p-4 bg-white rounded-md shadow-md">
         <h1 class="text-2xl font-semibold text-center mb-6">Book This Property</h1>
-        <form action="submit_booking.php" method="post">
+        <form action="submit_booking.php?property_id=<?php echo $propertyID; ?>" method="post">
             <div class="mb-4">
                 <label for="name" class="block text-gray-600 font-semibold">Your Name</label>
                 <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-amber-500" required>
@@ -77,6 +109,6 @@ mysqli_close($conn);
     </section>
 
     <!-- Footer and other content here -->
-
+    
 </body>
 </html>

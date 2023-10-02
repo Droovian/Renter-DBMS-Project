@@ -1,11 +1,7 @@
 <?php
 session_start();
 include("database.php");
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-require 'phpmailer/src/Exception.php';
-require 'phpmailer/src/PHPMailer.php';
-require 'phpmailer/src/SMTP.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -32,9 +28,3 @@ require 'phpmailer/src/SMTP.php';
 </body>
 </html>
 
-<?php
-
-   
-
-
-?>
