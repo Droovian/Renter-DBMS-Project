@@ -14,14 +14,20 @@ require 'phpmailer/src/SMTP.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verification</title>
+    <link rel="icon" href="../dist/images/fox-svgrepo-com.svg">
     <link rel="stylesheet" href="output.css">
 </head>
 <body>
+
+<div class="p-2 m-0 w-full">
+       <div class="container flex flex-row items-center space-x-4">
+        <a href="signup.php" class="font-body p-2 ml-4 text-2xl font-semibold invisible sm:visible">Renter</a>
+</div>
     <p class="text-red-500 text-xl font-light text-center"><?php echo $_SESSION['otpfail'];  ?></p>
     <div class="flex flex-row mx-auto border-2 border-black p-2 w-96 h-auto mt-48">
         <form action="query.php" class="flex flex-col justify-center mx-auto space-y-4" method="post">
             <h2 class="mx-auto font-light text-lg">Enter the otp</h2>
-            <input type="number" name="otpverify" autocomplete="off"
+            <input type="number" name="otpverify" autocomplete="off" required
             class="border-2 border-black w-72 mx-auto p-2">
             <input type="submit" name="authenticate" value="Authenticate" class="bg-black text-white text-center mt-3 rounded-lg hover:bg-white hover:text-black mx-auto w-auto p-2">
         </form>

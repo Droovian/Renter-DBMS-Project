@@ -89,7 +89,10 @@ function send_password_reset($name, $email_id, $token)
     else{
         echo '
         <div class="p-3">
-        <p class="text-red-500 text-2xl text-center font-bold font-body">An Email has been sent to you with instructions for password change.</p>
+            <div class="bg-green-200 rounded-lg p-4">
+                <p class="text-green-700 text-2xl text-center font-bold font-body">Password Reset Instructions Sent</p>
+                <p class="text-center text-gray-600">An email with instructions on how to reset your password has been sent to your email address. Please check your inbox and follow the instructions to reset your password.</p>
+            </div>
         </div>
         ';
     }
