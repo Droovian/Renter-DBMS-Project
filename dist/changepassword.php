@@ -14,12 +14,15 @@ session_start();
     <link rel="icon" href="images/fox-svgrepo-com.svg">
     <link rel="stylesheet" href="output.css">
 </head>
-<body>
+<body class="bg-gray-100">
 
     <p class="text-red-500 text-xl text-center"><?php  echo  $_SESSION['status']; ?></p>
-    <div class="w-1/2 h-auto border border-gray-400 rounded-sm mx-auto mt-32 p-3">
-        <div class="text-2xl text-sky-700">Change Password</div><hr>
-        <br>
+    <div class="bg-white w-1/2 h-auto border border-gray-400 rounded-sm mx-auto mt-32 p-3">
+        <div class="flex justify-between">
+        <div class="text-2xl my-auto text-amber-700">Change Password</div>
+        <img src="./images/fox.jpg" class="w-16" alt="">
+        </div>
+        <hr>
         <form action="resetcode.php" method="post" class="flex flex-col space-y-4">
             <input type="hidden" name="password_token"value="<?php if(isset($_GET['token'])){echo $_GET['token']; } ?>">
             <label for="">Email Address</label>
@@ -28,7 +31,7 @@ session_start();
             <input type="password" name="newpassword" autocomplete="off" placeholder="Enter New Password" class="p-2 border border-gray-400 rounded-md">
             <label for="">Confirm Password</label>
             <input type="password" placeholder="Enter Confirm Password" autocomplete="off" name="confirmpassword" class="p-2 border border-gray-400 rounded-md">
-            <button type="submit" name="updatepass" class="w-full p-3 mx-auto rounded-lg bg-sky-500 text-white font-light mb-5 hover:bg-sky-300">Update Password</button>
+            <button type="submit" name="updatepass" class="w-full p-3 mx-auto rounded-lg bg-amber-500 text-white font-light mb-5 hover:bg-amber-300">Update Password</button>
         </form>
     </div>
 </body>

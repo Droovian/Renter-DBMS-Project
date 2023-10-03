@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,28 +18,56 @@
         <?php
         // Check if the form has been submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $username = $_POST["username"];
-            $password = $_POST["password"];
+            $email = $_POST["email"];
+            $id = $_POST["id"];
 
-            // Check if both username and password are "admin"
-            if ($username === "admin" && $password === "admin") {
-                // Redirect to the admin dashboard or desired page upon successful login
-                header("Location: dashboard.php");
-                exit();
-            } else {
-                // Display an error message if login fails
-                echo '<p class="text-red-500 text-center mb-4">Invalid username or password. Please try again.</p>';
+            // Establish a database connection
+            $db_server = "localhost";
+            $db_user = "root";
+            $db_password = "";
+            $db_name = "RENTERUSERS";
+            $conn = new mysqli($db_server, $db_user, $db_password, $db_name);
+
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
             }
+
+            // Query the property_listings table
+            $sql = "SELECT * FROM property_listings WHERE email = ? AND id = ?";
+            $stmt = $conn->prepare($sql);
+
+            if ($stmt) {
+                $stmt->bind_param("si", $email, $id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                if ($result->num_rows === 1) {
+                    // Redirect to dashboard.php if a matching user is found
+                    $_SESSION['email'] = $email;
+                    $_SESSION['id'] = $id;
+                    header("Location: dashboard.php");
+                    exit();
+                } else {
+                    // Display an error message if no matching user is found
+                    echo '<p class="text-red-500 text-center mb-4">Invalid Email or ID. Please try again.</p>';
+                }
+
+                $stmt->close();
+            } else {
+                echo "Error preparing statement: " . $conn->error;
+            }
+
+            $conn->close();
         }
         ?>
         <form action="" method="post">
             <div class="mb-4">
-                <label for="username" class="block text-gray-600 font-semibold">Username</label>
-                <input type="text" id="username" name="username" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-amber-500" autocomplete="off" required>
+                <label for="email" class="block text-gray-600 font-semibold">Email</label>
+                <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-amber-500" autocomplete="off" required>
             </div>
-            <div class="mb-6">
-                <label for="password" class="block text-gray-600 font-semibold">Password</label>
-                <input type="password" id="password" name="password" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-amber-500" autocomplete="off" required>
+            <div class="mb-4">
+                <label for="id" class="block text-gray-600 font-semibold">ID</label>
+                <input type="text" id="id" name="id" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-amber-500" autocomplete="off" required>
             </div>
             <div class="mb-4">
                 <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-amber-500 focus:ring-opacity-50 w-full">Login</button>
@@ -43,4 +76,3 @@
     </div>
 </body>
 </html>
-
