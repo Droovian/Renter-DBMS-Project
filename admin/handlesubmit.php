@@ -86,6 +86,46 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             if ($stmt->execute()) {
                 $_SESSION['success-message'] = 'Data inserted successfully';
+
+                $sql = "SELECT id FROM property_listings WHERE email='$email' AND property_name='$property_name'";
+                $result = mysqli_query($conn, $sql);
+
+                if(mysqli_num_rows($result) > 0){
+                    $row = mysqli_fetch_assoc($result);
+
+                    $property_id_of_user = $row['id'];
+
+                    $mail = new PHPMailer(true);
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'rentercorp@gmail.com';
+                    $mail->Password = 'pmcofgzhhtnqscxf';
+                    $mail->SMTPSecure = 'ssl';
+                    $mail->Port = 465;
+                    $mail->setFrom('rentercorp@gmail.com');
+                    
+                    // Set recipient
+                    $mail->addAddress($email);
+                    
+                    // Set email content
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Property listing successful';
+                    $mail->Body = "
+                    <p>Property has successfully listed with us.</p>
+                    <p>Your Property ID is : '$property_id_of_user'</p>
+                    <br/><br/>
+                    <p>Thanks for working with us</p>
+                    <p>Renter Corp</p>
+                    ";
+
+                    $mail->send();
+
+                    if(!$mail->send()){
+                        echo "Mail did not send";
+                    }
+                }
+
             } else {
                 $_SESSION['error_messages'] = $errors;
             }

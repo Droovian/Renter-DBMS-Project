@@ -67,9 +67,10 @@ require '../dist/phpmailer/src/SMTP.php';
                 <?php
                 // Include your database connection code here
                 $emailadmin = $_SESSION['email'];
+                $id = $_SESSION['id'];
                 // echo $emailadmin;
                 // Query to retrieve booking data from the "bookings" table
-                $sql = "SELECT * FROM bookings WHERE email='$emailadmin'";
+                $sql = "SELECT * FROM bookings WHERE property_id='$id'";
                 $result = mysqli_query($conn, $sql);
 
                 // Check if there are any bookings

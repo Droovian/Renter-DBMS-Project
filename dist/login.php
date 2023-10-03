@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include("database.php");
 
 ?>
@@ -94,9 +94,9 @@ $err_msg = "Either Email entered or Password was incorrect.";
 
                 <div class="flex flex-col space-y-3 mt-2 p-2">
                     <form action="login.php" class="flex flex-col space-y-3" method="post">
-                    <label for="" class="">Email</label>
+                    <label for="email" class="">Email</label>
                     <input type="email" class="p-1 w-60 mx-auto border rounded-md focus:outline-none focus:border-blue-500" placeholder="Email" name="email" autocomplete="off" required>
-                    <label for="" class="">Password</label>
+                    <label for="password" class="">Password</label>
                     <input type="password" class="p-1 w-60 mx-auto border rounded-md focus:outline-none focus:border-blue-500" placeholder="Password" name="password" autocomplete="off" required>
                     <div class="flex flex-col justify-between space-y-3 items-center p-2  md:flex-row md:items-center">
                         <div class="flex items-center space-x-2 md:mr-24 ">
