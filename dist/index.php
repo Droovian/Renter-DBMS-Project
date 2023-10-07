@@ -70,17 +70,66 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
     </style>
     <div class="flex flex-row">
     <div class="flex flex-row space-x-3 w-full h-auto p-2">
-        <div class="mt-3 text-black p-2 mr-8">
+        <div class="text-black p-2">
             <a href="index.php" class="font-bold font-body text-3xl mx-5">Renter</a>
         </div>
     </div>
-    
-    <div class="justify-center  text-amber-700 font-light p-3 mt-5 mr-5">
-        <a href="signup.php" class="">Login/Register</a>
+    <div class="ml-auto my-auto mr-5">
+        <button id="sidebarToggle"
+        ><img src="images/person.png" alt="person-icon" class="w-10"></button>
     </div>
+</div>
+
+<div id="sidebar" class="fixed inset-y-0 right-0 w-64 bg-white border-l border-gray-300 shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out">
+    <!-- Header with user's name (displayed after login) -->
+    <div id="sidebarHeader" class="bg-amber-500 text-white p-4">
+        <h2 class="text-2xl font-semibold">Welcome, <span id="userName"><?php echo $_SESSION['username']  ?></span>!</h2>
+    </div>
+    <!-- Content (Login/Logout buttons) -->
+    <div id="sidebarContent" class="flex flex-col items-center justify-center p-4 h-full">
+        <?php if (isset($_SESSION['username'])) { ?>
+            <button id="logoutButton" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-red-500 focus:ring-opacity-50">Logout</button>
+        <?php } else { ?>
+            <!-- If user is not logged in, show login/signup button -->
+            <button id="loginButton" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-amber-500 focus:ring-opacity-50">Login / Signup</button>
+        <?php } ?>
+    </div>
+</div>
+    
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarHeader = document.getElementById('sidebarHeader');
+        const sidebarContent = document.getElementById('sidebarContent');
+        const userName = document.getElementById('userName');
+        const loginButton = document.getElementById('loginButton');
+
+        // Function to open/close the sidebar
+        function toggleSidebar() {
+            sidebar.classList.toggle('translate-x-full');
+        }
+
+
+        // Initially, the sidebar should be hidden
+        sidebar.classList.add('translate-x-full');
+
+        // Event listener for the sidebar toggle button
+        sidebarToggle.addEventListener('click', toggleSidebar);
+
+        // Event listener to hide sidebar when the cursor leaves the sidebar area
+        sidebar.addEventListener('mouseleave', () => {
+            sidebar.classList.add('translate-x-full');
+        });
+
+        // Simulate the login status (you should replace this with your actual login status check)
+        const userLoggedIn = false; // Change to true if the user is logged in
+        const userNameValue = 'John Doe'; // Replace with the user's actual name if logged in
+
+        // Update the sidebar content based on the login status
+        updateSidebar(userLoggedIn, userNameValue);
+    </script>
 
     
-    </div>
 </div>
 
 <section class="hero bg-[url('../dist/images/pano.jpg')] bg-cover text-center py-24">

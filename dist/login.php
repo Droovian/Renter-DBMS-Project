@@ -18,10 +18,12 @@ $err_msg = "Either Email entered or Password was incorrect.";
         if(mysqli_num_rows($query_result) > 0){
             $user_data = mysqli_fetch_assoc($query_result);
 
+            $name_db = $user_data["Name"];
             $email_db = $user_data["Email"];
             $pass_db = $user_data["password"];
 
             if(($users_email == $email_db) && password_verify($users_password, $pass_db)){
+                $_SESSION['username'] = $name_db;
                 header("location: index.php");
                 exit();
             }

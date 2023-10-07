@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_close($conn);
 } else {
     // Redirect the user back to the booking page if they access this script directly
-    header("Location: booking_page.php?property_id=" . $propertyID);
+    header("Location: booking.php?property_id=" . $propertyID);
     exit();
 }
 ?>

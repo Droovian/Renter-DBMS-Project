@@ -16,7 +16,7 @@ require '../dist/phpmailer/src/SMTP.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="icon" href="../dist/images/fox-svgrepo-com.svg">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Sidebar styles */
         .sidebar {
@@ -88,7 +88,8 @@ require '../dist/phpmailer/src/SMTP.php';
                         echo '<td class="px-6 py-4 whitespace-nowrap">';
                         echo '<form method="post" action="update_status.php">';
                         echo '<input type="hidden" name="booking_id" value="' . $row['id'] . '">';
-                        echo '<button type="submit" name="confirm_booking" class="bg-green-500 text-white px-2 py-1 rounded">Confirm</button>';
+                        echo '<button type="submit" name="confirm_booking" value="confirmed" class="bg-green-500 text-white px-2 py-1 rounded">Confirm</button><br><br>';
+                        echo '<button type="submit" name="confirm_booking" value="rejected" class="bg-amber-700 text-white px-4 py-1 rounded">Reject</button>';
                         echo '</form>';
                         echo '</td>';
                         echo '</tr>';

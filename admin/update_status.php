@@ -6,17 +6,24 @@ require '../dist/phpmailer/src/Exception.php';
 require '../dist/phpmailer/src/PHPMailer.php';
 require '../dist/phpmailer/src/SMTP.php';
 
-if (isset($_POST['confirm_booking'])) {
+if (isset($_POST['confirm_booking'])){
     $bookingID = $_POST['booking_id'];
-
-    // Update the status to 'confirmed' in the database
-    $updateSql = "UPDATE bookings SET status = 'confirmed' WHERE id = ?";
+    $status = $_POST['confirm_booking'];  // Assuming 'confirm_booking' holds the new status
+    
+    // Update the status to the new value in the database
+    $updateSql = "UPDATE bookings SET status = ? WHERE id = ?";
     $updateStmt = mysqli_prepare($conn, $updateSql);
 
     if ($updateStmt) {
-        mysqli_stmt_bind_param($updateStmt, "i", $bookingID);
-        mysqli_stmt_execute($updateStmt);
-        mysqli_stmt_close($updateStmt);
+        mysqli_stmt_bind_param($updateStmt, "si", $status, $bookingID);  // Bind the correct data types
+        if (mysqli_stmt_execute($updateStmt)) {
+            // Status updated successfully
+            mysqli_stmt_close($updateStmt);
+        } else {
+            // Status update failed
+            echo '<p class="text-amber-500 text-center mb-4">Status update failed. Please try again later.</p>';
+            exit();  // Exit the script if the update fails
+        }
     }
 
     $emailSql = "SELECT email FROM bookings WHERE id = ?";
@@ -47,7 +54,7 @@ if (isset($_POST['confirm_booking'])) {
                 // Set email content
                 $mail->isHTML(true);
                 $mail->Subject = 'Booking Confirmation';
-                $mail->Body = 'Your booking has been confirmed.';
+                $mail->Body = 'Your booking has been ' . $status;
                 
                 // Send the email
                 if ($mail->send()) {
