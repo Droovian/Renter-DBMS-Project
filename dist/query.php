@@ -20,45 +20,31 @@ include("database.php");
 
 <?php
 
-$msg = 'OTP did not match! Please retry';
 $users_otp = $_POST["otpverify"];
+$generated_otp = $_SESSION['otp'];
 
-$sql = "SELECT * FROM checkusers WHERE otp = '$users_otp' ";
+        $final_name = $_SESSION['name'];
+        $final_email = $_SESSION['email'];
+        $final_password = $_SESSION['hash'];
+        $final_phone = $_SESSION['phone_no'];
 
-$result = mysqli_query($conn, $sql);
-
-if(!$result){
-    echo 'Database query error: '.mysqli_error($conn) . 'Redirecting...';
-    echo '<script>
-                    setTimeout(function() {
-                    window.location.href = "signup.php";
-                    }, 3000);
-         </script>';
-}
-
- else if(mysqli_num_rows($result) > 0){
-    $row = mysqli_fetch_assoc($result);
-    // echo $row["Name"] . "<br>";
-    $stored_otp = $row["otp"];
-
-        $final_name = $row["Name"];
-        $final_email = $row["Email"];
-        $final_password = $row["password"];
-        $final_phone = $row["phone_no"];
-        $sql = "INSERT INTO finalusers (Name, Email, password, phone_no)
+        if($users_otp == $generated_otp){
+            $sql = "INSERT INTO finalusers (Name, Email, password, phone_no)
                 VALUES ('$final_name', '$final_email', '$final_password', '$final_phone')";
 
-    try{
-        mysqli_query($conn, $sql);
-    }
-    
-    catch(mysqli_sql_exception){
-        echo "Failed, Error occured!";
-    }
-        header("Location: login.php");
- }
+            try{
+                mysqli_query($conn, $sql);
+            }
+            catch(mysqli_sql_exception){
+                echo "Error: " . mysqli_error($conn);
+            }
+
+            mysqli_close($conn);
+            header("Location: login.php");
+        }
    else{
 
+    $msg = 'OTP did not match! Please retry';
     $_SESSION['otpfail'] = $msg;
 
     echo "<script>

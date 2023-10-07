@@ -52,9 +52,22 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
     <title>Renter</title>
     <link rel="icon" href="images/fox-svgrepo-com.svg">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    
 </head>
 <body class="bg-white">
+    <style>
+        #map{
+            height: 80vh;
+            background-color: #f0f0f0;
+        }
 
+    </style>
     <div class="flex flex-row">
     <div class="flex flex-row space-x-3 w-full h-auto p-2">
         <div class="mt-3 text-black p-2 mr-8">
@@ -214,6 +227,11 @@ mysqli_close($conn);
     </div>
 </section>
 
+<section id='map-section' class="bg-gray-200 w-screen">
+    <div id="map">
+
+    </div>
+</section>
 <footer class="flex justify-between border-black fixed bottom-0 bg-white w-screen">
     <div class="flex flex-row space-x-3 h-12 px-10 items-center">
         <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1 underline">Renter Corp™️</a>
@@ -228,7 +246,8 @@ mysqli_close($conn);
     </div>
 </footer>
 
-
+<script src="../maps/maps.js" defer></script>
 </body>
+
 </html>
 

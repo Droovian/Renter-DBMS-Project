@@ -50,6 +50,7 @@ $check_dup = $search_res["Email"];
 $otp = rand(100000, 999999);
     if(isset($_POST["signup"])){
 
+        $_SESSION['otp'] = $otp;
         if($email_id == $check_dup){
             header("Location: signup.php");
         
@@ -77,33 +78,14 @@ $otp = rand(100000, 999999);
             echo "Error occured";
         }
 else{
-
-        if(!empty($_POST["name"]) && !empty($_POST["email"]) && !empty($_POST["password"]) && !empty($_POST['phoneno'])){
-
-            $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
+            $_SESSION['name'] = filter_input(INPUT_POST, "name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $_SESSION['email'] = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
             $pass = $_POST["password"];
-            $phone_no = $_POST['phoneno'];
-            // $hash = $pass;
-             $hash = password_hash($pass, PASSWORD_DEFAULT);
-            // echo "$name, $email, $pass";
-            $sql = "INSERT INTO checkusers (Name, Email, password, otp, phone_no)
-                    VALUES ('$name', '$email', '$hash', '$otp', '$phone_no')";
-
-            try{
-                mysqli_query($conn, $sql);
-                // header("Location: submitotp.php");
-            }
-            catch(mysqli_sql_exception){
-                echo "Could not register";
-            }
-            mysqli_close($conn);
+            $_SESSION['phone_no'] = $_POST['phoneno'];
+            $_SESSION['hash'] = password_hash($pass, PASSWORD_DEFAULT);
             
-        }
-        else{
-            echo "Error";
-        }
     }
+
     }
 
 

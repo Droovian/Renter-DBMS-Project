@@ -1,6 +1,6 @@
 <?php
-    include("database.php");
     session_start();
+    include("database.php");
 ?>
 
 
@@ -74,9 +74,3 @@
 
 </body>
 </html>
-
-<?php
-
-session_destroy();
-
-?>
