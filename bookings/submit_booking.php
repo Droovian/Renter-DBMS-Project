@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = isset($_POST['message']) ? $_POST['message'] : '';
 
     // Perform further validation as needed (e.g., check date formats, email format, etc.)
-    
+
     // Insert the booking data into the "bookings" table
     $sql = "INSERT INTO bookings (property_id, name, email, mobile, check_in, check_out, message, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'not_confirmed')";
     $stmt = mysqli_prepare($conn, $sql);
@@ -24,8 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Check if the insertion was successful
         if (mysqli_affected_rows($conn) > 0) {
-            // Display a success message and redirect the user back to the booking page
-            echo '<script>alert("Booking application has been sent."); window.location.href = "booking.php?property_id=' . $propertyID . '";</script>';
+            // Get the customer ID for the last inserted booking
+            $customerID = mysqli_insert_id($conn);
+
+            // Display a success message with the customer ID and redirect the user back to the booking page
+            echo '<script>alert("Booking application has been sent.\nCustomer ID is: ' . $customerID . '\nPlease remember it."); window.location.href = "booking.php?property_id=' . $propertyID . '";</script>';
+
             exit();
         } else {
             echo "Error submitting the booking. Please try again.";

@@ -24,6 +24,7 @@ $err_msg = "Either Email entered or Password was incorrect.";
 
             if(($users_email == $email_db) && password_verify($users_password, $pass_db)){
                 $_SESSION['username'] = $name_db;
+                $_SESSION["check"] = $email_db;
                 header("location: index.php");
                 exit();
             }
@@ -97,7 +98,7 @@ $err_msg = "Either Email entered or Password was incorrect.";
                 <div class="flex flex-col space-y-3 mt-2 p-2">
                     <form action="login.php" class="flex flex-col space-y-3" method="post">
                     <label for="email" class="">Email</label>
-                    <input type="email" class="p-1 w-60 mx-auto border rounded-md focus:outline-none focus:border-blue-500" placeholder="Email" name="email" autocomplete="off" required>
+                    <input type="email" class="p-1 w-60 mx-auto border rounded-md focus:outline-none focus:border-blue-500" placeholder="Email" name="email" autocomplete="on" required>
                     <label for="password" class="">Password</label>
                     <input type="password" class="p-1 w-60 mx-auto border rounded-md focus:outline-none focus:border-blue-500" placeholder="Password" name="password" autocomplete="off" required>
                     <div class="flex flex-col justify-between space-y-3 items-center p-2  md:flex-row md:items-center">
@@ -136,5 +137,3 @@ $err_msg = "Either Email entered or Password was incorrect.";
 <script src="script.js" defer></script>
 
 </html>
-
-

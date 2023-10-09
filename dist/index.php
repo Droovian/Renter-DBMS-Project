@@ -1,6 +1,10 @@
 <?php
 session_start();
 include("database.php");
+if(!isset($_SESSION["check"])){
+    header("location:login.php");
+}
+
 
 function getPropertyListings($conn, $searchLocation = null, $propertyType = null) {
     $sql = "SELECT * FROM property_listings WHERE 1=1"; // Start with a valid SQL query
@@ -41,6 +45,7 @@ function getPropertyListings($conn, $searchLocation = null, $propertyType = null
 $searchLocation = isset($_GET['location']) ? $_GET['location'] : null;
 $propertyType = isset($_GET['property_type']) ? $_GET['property_type'] : null;
 $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
+session_destroy();
 ?>
 
 
@@ -80,19 +85,24 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
     </div>
 </div>
 
-<div id="sidebar" class="fixed inset-y-0 right-0 w-64 bg-white border-l border-gray-300 shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out">
+<div id="sidebar" class="fixed inset-y-0 right-0 w-64 bg-white border-l border-gray-300 shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out h-[70vh]">
     <!-- Header with user's name (displayed after login) -->
     <div id="sidebarHeader" class="bg-amber-500 text-white p-4">
         <h2 class="text-2xl font-semibold">Welcome, <span id="userName"><?php echo $_SESSION['username']  ?></span>!</h2>
     </div>
     <!-- Content (Login/Logout buttons) -->
     <div id="sidebarContent" class="flex flex-col items-center justify-center p-4 h-full">
-        <?php if (isset($_SESSION['username'])) { ?>
-            <button id="logoutButton" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-red-500 focus:ring-opacity-50">Logout</button>
-        <?php } else { ?>
-            <!-- If user is not logged in, show login/signup button -->
-            <button id="loginButton" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-amber-500 focus:ring-opacity-50">Login / Signup</button>
-        <?php } ?>
+        <!--removed else statement and created a form approach --> 
+        <?php if (isset($_SESSION['username'])) 
+            echo '<form action="logout.php" method="post">';
+            echo '<button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-10 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-red-500 focus:ring-opacity-50">Logout</button>';
+            echo '</form>';
+            echo '<br>';
+            echo '<form action="id.php" method="post">';
+            echo '<input type="hidden" name="check" value="' . $_SESSION["check"] . '">';
+            echo '<button type="submit" name="my_bookings" class="bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">My Bookings</button>';
+            echo '</form>';
+        ?>
     </div>
 </div>
     
@@ -299,4 +309,3 @@ mysqli_close($conn);
 </body>
 
 </html>
-
