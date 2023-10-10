@@ -133,9 +133,7 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
         sidebar.addEventListener('mouseleave', () => {
             sidebar.classList.add('translate-x-full');
         });
-
-        const userLoggedIn = false; 
-        const userNameValue = 'John Doe';
+;
     </script>
 
     

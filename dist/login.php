@@ -70,22 +70,45 @@ $err_msg = "Either Email entered or Password was incorrect.";
        </div>
 
        <div class="mr-5">
-        <button class="cursor-pointer" id="dropbutton">
-            <img src="images/more.png" class="w-10 p-1 hover:rotate-90 "alt="three-dots">
+        <button class="cursor-pointer" id="sidebarToggle">
+            <img src="images/more.png" class="w-10 p-1"alt="three-dots">
         </button>
         </div>
     </div>
- <div class="flex flex-row justify-end mr-11">
-    <div class="bg-black text-white font-light w-48 h-auto absolute flex-col space-y-1 rounded-lg border-2 border-grey-400  p-3 drop-shadow-lg hidden" id="container">
-        <a href="#">About Us</a>
-        <hr>
-        <a href="#">Support</a>
-        <hr>
-        <a href="#">Email</a>
+   
+    <div id="sidebar" class="fixed inset-y-0 right-0 w-64 bg-gray-900 text-white border-l border-gray-800 shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out h-[70vh]">
+    <div id="sidebarHeader" class="bg-amber-600 text-white p-4">
+        <h2 class="text-2xl font-semibold font-body">Dashboard</h2>
     </div>
 
+    <div id="sidebarContent" class="flex flex-col space-y-5 p-4 h-full">
+        <p class="mt-2 font-light text-gray-300 text-center">Are you an Owner?</p>
+        <button class="bg-amber-700 hover:bg-amber-500 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            <a href="../admin/adminlogin.php">Owner Login</a>
+        </button>
     </div>
-   
+</div>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarHeader = document.getElementById('sidebarHeader');
+        const sidebarContent = document.getElementById('sidebarContent');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('translate-x-full');
+        }
+        
+        sidebar.classList.add('translate-x-full');
+
+        sidebarToggle.addEventListener('click', toggleSidebar);
+
+        sidebar.addEventListener('mouseleave', () => {
+            sidebar.classList.add('translate-x-full');
+        });
+;
+    </script>
+
     <div class="bg-gray-100 flex items-center justify-center min-h-screen ">
         <div class="bg-gray-100 flex flex-row mx-auto w-1/2 shadow-2xl rounded-md border-black">
             <div class="p-3 sm:p-0 bg-gray-100 flex flex-col justify-center rounded-md">
@@ -121,6 +144,7 @@ $err_msg = "Either Email entered or Password was incorrect.";
             <img src="images/mountaing.jpg" alt="mountain-img" class="ml-auto invisible sm:invisible md:visible h-auto w-1/2 md:object-cover lg:object-cover rounded-md">
         </div>
     </div>
+
 </body>
 <footer class="invisible sm:visible flex justify-between border-black fixed bottom-0 bg-white w-screen">
     <div class="flex flex-row space-x-3 h-12 px-10 items-center">
@@ -134,6 +158,5 @@ $err_msg = "Either Email entered or Password was incorrect.";
         
     </div>
 </footer>
-<script src="script.js" defer></script>
 
 </html>

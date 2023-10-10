@@ -17,7 +17,7 @@ require 'phpmailer/src/SMTP.php';
     <link rel="icon" href="../dist/images/fox-svgrepo-com.svg">
     <link rel="stylesheet" href="output.css">
 </head>
-<body>
+<body class="bg-gray-100">
 
 <div class="p-2 m-0 w-full">
        <div class="container flex flex-row items-center space-x-4">
