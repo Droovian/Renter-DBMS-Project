@@ -1,11 +1,6 @@
 <?php
 session_start();
 include("database.php");
-// if(!isset($_SESSION["check"])){
-//     header("location:login.php");
-// }
-
-
 function getPropertyListings($conn, $searchLocation = null, $propertyType = null) {
     $sql = "SELECT * FROM property_listings WHERE 1=1"; // Start with a valid SQL query
 
@@ -45,7 +40,7 @@ function getPropertyListings($conn, $searchLocation = null, $propertyType = null
 $searchLocation = isset($_GET['location']) ? $_GET['location'] : null;
 $propertyType = isset($_GET['property_type']) ? $_GET['property_type'] : null;
 $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
-session_destroy();
+
 ?>
 
 
@@ -93,15 +88,28 @@ session_destroy();
     <!-- Content (Login/Logout buttons) -->
     <div id="sidebarContent" class="flex flex-col items-center justify-center p-4 h-full">
         <!--removed else statement and created a form approach --> 
-        <?php if (isset($_SESSION['username'])) 
+        <?php if(!isset($_SESSION['username'])){
+            echo '<button class="bg-amber-700 hover:bg-amber-500 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            <a href="login.php">Login To Continue</a>
+            </button>';
+        }
+        else
+        {
             echo '<form action="logout.php" method="post">';
             echo '<button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-10 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-red-500 focus:ring-opacity-50">Logout</button>';
             echo '</form>';
+            echo '<br>';
+            echo '
+            <button class="bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                <a href="../admin/admin.php">List your Property</a>
+            </button>
+            ';
             echo '<br>';
             echo '<form action="id.php" method="post">';
             echo '<input type="hidden" name="check" value="' . $_SESSION["check"] . '">';
             echo '<button type="submit" name="my_bookings" class="bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">My Bookings</button>';
             echo '</form>';
+        }
         ?>
     </div>
 </div>
@@ -114,29 +122,20 @@ session_destroy();
         const userName = document.getElementById('userName');
         const loginButton = document.getElementById('loginButton');
 
-        // Function to open/close the sidebar
         function toggleSidebar() {
             sidebar.classList.toggle('translate-x-full');
         }
 
-
-        // Initially, the sidebar should be hidden
         sidebar.classList.add('translate-x-full');
 
-        // Event listener for the sidebar toggle button
         sidebarToggle.addEventListener('click', toggleSidebar);
 
-        // Event listener to hide sidebar when the cursor leaves the sidebar area
         sidebar.addEventListener('mouseleave', () => {
             sidebar.classList.add('translate-x-full');
         });
 
-        // Simulate the login status (you should replace this with your actual login status check)
-        const userLoggedIn = false; // Change to true if the user is logged in
-        const userNameValue = 'John Doe'; // Replace with the user's actual name if logged in
-
-        // Update the sidebar content based on the login status
-        updateSidebar(userLoggedIn, userNameValue);
+        const userLoggedIn = false; 
+        const userNameValue = 'John Doe';
     </script>
 
     
@@ -299,7 +298,6 @@ mysqli_close($conn);
         <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Terms</a>
     </div>
     <div class="flex flex-row items-center space-x-4 px-10">
-        <a href="../admin/admin.php" class="text-sm font-light underline text-amber-700 hover:text-amber-800">List</a>
         <img src="images/reshot-icon-globe-PL5973EKAD.svg" class="w-5" alt="the-globe">
         
     </div>

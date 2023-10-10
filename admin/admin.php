@@ -6,7 +6,7 @@ if(isset($_SESSION['error-messages'])){
 
     echo '<div class="text-red-600 font-bold text-center p-2 mb-4">';
     foreach ($errors as $error) {
-        echo '<p>' . $error . '</p>';
+        echo '<p>' . htmlspecialchars($error) . '</p>';
     }
     echo '</div>';
     unset($_SESSION['error-messages']);
@@ -193,15 +193,15 @@ if(isset($_SESSION['error-messages'])){
     </div>
 
     <script>
-        function addressAutocomplete(containerElement, callback, options) {
+  function addressAutocomplete(containerElement, callback, options) {
   // create input element
-  var inputElement = document.createElement("input");
-  inputElement.setAttribute("type", "text");
-  inputElement.setAttribute("placeholder", options.placeholder);
-  inputElement.setAttribute("id", "location");
-  inputElement.setAttribute("class", "location");
-  inputElement.setAttribute("name", "location");
-  containerElement.appendChild(inputElement);
+    var inputElement = document.createElement("input");
+    inputElement.setAttribute("type", "text");
+    inputElement.setAttribute("placeholder", options.placeholder);
+    inputElement.setAttribute("id", "location");
+    inputElement.setAttribute("class", "location");
+    inputElement.setAttribute("name", "location");
+    containerElement.appendChild(inputElement);
 
   // add input field clear button
   var clearButton = document.createElement("div");
@@ -355,7 +355,8 @@ addressAutocomplete(document.getElementById("autocomplete-container-city"), (dat
   console.log("Selected city: ");
   console.log(data);
 }, {
-	placeholder: "Enter a city name here"
+	placeholder: "Enter a city name here",
+  type: "city"
 });
     </script>
 
