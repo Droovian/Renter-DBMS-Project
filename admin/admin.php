@@ -21,6 +21,81 @@ if(isset($_SESSION['error-messages'])){
     <link rel="icon" href="../dist/images/fox-svgrepo-com.svg">
     <title>List</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+            .autocomplete-container {
+  /*the container must be positioned relative:*/
+            position: relative;
+            
+            margin-bottom: 20px;
+}
+
+.autocomplete-container input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #e5e7eb; /* Match the border color with other input fields */
+  border-radius: 0.25rem; /* Match the border-radius with other input fields */
+  background-color: #fff; /* Match the background color with other input fields */
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Add focus styles for the location input field */
+.autocomplete-container input:focus {
+  border-color: #2563eb; /* Match the focus border color with other input fields */
+  box-shadow: 0 0 0 0.125rem rgba(37, 99, 235, 0.25); /* Match the focus box-shadow with other input fields */
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.1);
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  
+  background-color: #fff;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.autocomplete-items .autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.clear-button {
+  color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  
+  position: absolute;
+  right: 5px;
+  top: 0;
+
+  height: 100%;
+  display: none;
+  align-items: center;
+}
+
+.clear-button.visible {
+  display: flex;
+}
+
+
+.clear-button:hover {
+  color: rgba(0, 0, 0, 0.6);
+}
+    </style>
 </head>
 <body class="bg-gray-100 p-10">
 
@@ -93,11 +168,17 @@ if(isset($_SESSION['error-messages'])){
             </div>
 
             <!-- Location -->
-            <div class="mb-4">
+            <!-- <div class="mb-4">
                 <label for="location" class="block text-gray-600 text-sm font-medium mb-2">Location</label>
-                <input type="text" id="location" name="location" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
+                 <input type="text" id="location" name="location"  class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
+                 
+            </div> -->
+            <div class="mb-4">
+                 <label for="location" class="block text-gray-600 text-sm font-medium mb-2">Location</label>
+                 <div class="autocomplete-container" id="autocomplete-container"></div>
             </div>
-
+    
+            <div class="autocomplete-container" id="autocomplete-container-city"></div>
             <!-- Image Upload -->
             <div class="mb-4">
                 <label for="image" class="block text-gray-600 text-sm font-medium mb-2">Upload Image</label>
@@ -110,6 +191,174 @@ if(isset($_SESSION['error-messages'])){
             </div>
         </form>
     </div>
+
+    <script>
+        function addressAutocomplete(containerElement, callback, options) {
+  // create input element
+  var inputElement = document.createElement("input");
+  inputElement.setAttribute("type", "text");
+  inputElement.setAttribute("placeholder", options.placeholder);
+  inputElement.setAttribute("id", "location");
+  inputElement.setAttribute("class", "location");
+  inputElement.setAttribute("name", "location");
+  containerElement.appendChild(inputElement);
+
+  // add input field clear button
+  var clearButton = document.createElement("div");
+  clearButton.classList.add("clear-button");
+  addIcon(clearButton);
+  clearButton.addEventListener("click", (e) => {
+    e.stopPropagation();
+    inputElement.value = '';
+    callback(null);
+    clearButton.classList.remove("visible");
+    closeDropDownList();
+  });
+  containerElement.appendChild(clearButton);
+
+  /* Current autocomplete items data (GeoJSON.Feature) */
+  var currentItems;
+
+  /* Active request promise reject function. To be able to cancel the promise when a new request comes */
+  var currentPromiseReject;
+
+  /* Focused item in the autocomplete list. This variable is used to navigate with buttons */
+  var focusedItemIndex;
+
+  /* Execute a function when someone writes in the text field: */
+  inputElement.addEventListener("input", function(e) {
+    var currentValue = this.value;
+
+    /* Close any already open dropdown list */
+    closeDropDownList();
+
+    // Cancel previous request promise
+    if (currentPromiseReject) {
+      currentPromiseReject({
+        canceled: true
+      });
+    }
+
+    if (!currentValue) {
+      clearButton.classList.remove("visible");
+      return false;
+    }
+
+    // Show clearButton when there is a text
+    clearButton.classList.add("visible");
+
+    /* Create a new promise and send geocoding request */
+    var promise = new Promise((resolve, reject) => {
+      currentPromiseReject = reject;
+
+      var apiKey = "7dacd17594f3471b83275660c476b5bc";
+      var url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(currentValue)}&limit=5&apiKey=${apiKey}`;
+      
+      if (options.type) {
+      	url += `&type=${options.type}`;
+      }
+
+      fetch(url)
+        .then(response => {
+          // check if the call was successful
+          if (response.ok) {
+            response.json().then(data => resolve(data));
+          } else {
+            response.json().then(data => reject(data));
+          }
+        });
+    });
+
+    promise.then((data) => {
+      currentItems = data.features;
+       var cityName = currentItems[0].properties.city;
+        console.log(cityName);
+      var autocompleteItemsElement = document.createElement("div");
+      autocompleteItemsElement.setAttribute("class", "autocomplete-items");
+      containerElement.appendChild(autocompleteItemsElement);
+
+      data.features.forEach((feature, index) => {
+        var itemElement = document.createElement("DIV");
+        itemElement.innerHTML = feature.properties.formatted;
+
+        itemElement.addEventListener("click", function(e) {
+          inputElement.value = currentItems[index].properties.formatted;
+
+          callback(currentItems[index]);
+
+        
+          closeDropDownList();
+        });
+
+        autocompleteItemsElement.appendChild(itemElement);
+      });
+    }, (err) => {
+      if (!err.canceled) {
+        console.log(err);
+      }
+    });
+  });
+
+  function setActive(items, index) {
+    if (!items || !items.length) return false;
+
+    for (var i = 0; i < items.length; i++) {
+      items[i].classList.remove("autocomplete-active");
+    }
+
+    /* Add class "autocomplete-active" to the active element*/
+    items[index].classList.add("autocomplete-active");
+
+    // Change input value and notify
+    inputElement.value = currentItems[index].properties.formatted;
+    callback(currentItems[index]);
+  }
+
+  function closeDropDownList() {
+    var autocompleteItemsElement = containerElement.querySelector(".autocomplete-items");
+    if (autocompleteItemsElement) {
+      containerElement.removeChild(autocompleteItemsElement);
+    }
+
+    focusedItemIndex = -1;
+  }
+
+  function addIcon(buttonElement) {
+    var svgElement = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
+    svgElement.setAttribute('viewBox', "0 0 24 24");
+    svgElement.setAttribute('height', "24");
+
+    var iconElement = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+    iconElement.setAttribute("d", "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z");
+    iconElement.setAttribute('fill', 'currentColor');
+    svgElement.appendChild(iconElement);
+    buttonElement.appendChild(svgElement);
+  }
+  
+    /* Close the autocomplete dropdown when the document is clicked. 
+  	Skip, when a user clicks on the input field */
+  document.addEventListener("click", function(e) {
+    if (e.target !== inputElement) {
+      closeDropDownList();
+    } else if (!containerElement.querySelector(".autocomplete-items")) {
+      // open dropdown list again
+      var event = document.createEvent('Event');
+      event.initEvent('input', true, true);
+      inputElement.dispatchEvent(event);
+    }
+  });
+
+}
+
+
+addressAutocomplete(document.getElementById("autocomplete-container-city"), (data) => {
+  console.log("Selected city: ");
+  console.log(data);
+}, {
+	placeholder: "Enter a city name here"
+});
+    </script>
+
 </body>
 
 <footer class="flex justify-between mt-10 border-black fixed bottom-0 bg-transparent w-screen">

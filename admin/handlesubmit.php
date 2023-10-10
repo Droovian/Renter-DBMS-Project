@@ -10,6 +10,7 @@ require '../dist/phpmailer/src/SMTP.php';
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $errors = [];
 
+    echo $_POST['location'];
     $property_name = trim($_POST["property_name"]);
     $property_type = trim($_POST["property_type"]);
     $rent_amount = $_POST["rent_amount"];

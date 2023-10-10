@@ -1,9 +1,9 @@
 <?php
 session_start();
 include("database.php");
-if(!isset($_SESSION["check"])){
-    header("location:login.php");
-}
+// if(!isset($_SESSION["check"])){
+//     header("location:login.php");
+// }
 
 
 function getPropertyListings($conn, $searchLocation = null, $propertyType = null) {
