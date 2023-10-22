@@ -14,6 +14,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Perform further validation as needed (e.g., check date formats, email format, etc.)
 
+    // Check for date availability
+    $dateAvailable = true;
+
+    $sql = "SELECT * FROM bookings WHERE property_id = ? AND (
+        (check_in <= ? AND check_out >= ?)
+        OR (check_in <= ? AND check_out >= ?)
+    )";
+    
+    $stmt = mysqli_prepare($conn, $sql);
+
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "issss", $propertyID, $checkIn, $checkOut, $checkIn, $checkOut);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        if (mysqli_num_rows($result) > 0) {
+            $dateAvailable = false;
+        }
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
+
+    // If the selected dates are not available, display an error message
+    if (!$dateAvailable) {
+        echo '<script>alert("Selected Dates are not available. Please choose different dates."); window.location.href = "booking.php?property_id=' . $propertyID . '";</script>';
+        exit();
+    }
+
     // Insert the booking data into the "bookings" table
     $sql = "INSERT INTO bookings (property_id, name, email, mobile, check_in, check_out, message, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'not_confirmed')";
     $stmt = mysqli_prepare($conn, $sql);
@@ -29,7 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Display a success message with the customer ID and redirect the user back to the booking page
             echo '<script>alert("Booking application has been sent.\nCustomer ID is: ' . $customerID . '\nPlease remember it."); window.location.href = "booking.php?property_id=' . $propertyID . '";</script>';
-
             exit();
         } else {
             echo "Error submitting the booking. Please try again.";

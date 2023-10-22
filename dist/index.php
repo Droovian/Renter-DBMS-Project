@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['username'])) {
+    // User is not authenticated, redirect to the login page
+    header('Location: login.php');
+    exit();
+}
+
 include("database.php");
 function getPropertyListings($conn, $searchLocation = null, $propertyType = null) {
     $sql = "SELECT * FROM property_listings WHERE 1=1"; // Start with a valid SQL query
@@ -7,8 +14,20 @@ function getPropertyListings($conn, $searchLocation = null, $propertyType = null
     $params = [];
 
     if ($searchLocation !== null) {
-        $sql .= " AND location LIKE ?";
-        $params[] = '%' . $searchLocation . '%';
+        // Split the search string by space or hyphen
+        $searchTerms = preg_split("/[\s-]+/", $searchLocation);
+        
+        // Create an array to hold the conditions
+        $conditions = [];
+
+        foreach ($searchTerms as $term) {
+            $term = '%' . $term . '%'; // Add % to each term
+            $conditions[] = "location LIKE ?";
+            $params[] = $term;
+        }
+
+        // Combine the conditions using OR
+        $sql .= " AND (" . implode(" OR ", $conditions) . ")";
     }
 
     if ($propertyType !== null && $propertyType !== "") { // Check if property type is not empty
@@ -41,6 +60,9 @@ $searchLocation = isset($_GET['location']) ? $_GET['location'] : null;
 $propertyType = isset($_GET['property_type']) ? $_GET['property_type'] : null;
 $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
 
+
+
+
 ?>
 
 
@@ -59,6 +81,53 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
     
+     <style>
+.autocomplete-container input {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: none; /* Remove the border */
+  border-radius: 0.375rem;
+}
+
+/* Update the focus styles for the input field */
+.autocomplete-container input:focus {
+  background-color: #fff; /* White background on focus */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Subtle box shadow on focus */
+}
+
+/* Update the autocomplete dropdown styles */
+.autocomplete-items {
+  position: absolute;
+  width: 50%;
+  border-radius: 0.375rem;
+  z-index: 99;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  border: none; /* Remove the border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight box shadow */
+  background-color: #fff;
+}
+
+/* Update the suggestion item styles */
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.autocomplete-items div:hover {
+  background-color: #f0f4f8; 
+}
+
+.autocomplete-items .autocomplete-active {
+  background-color: #2563eb; 
+  color: #fff; 
+}
+
+    </style>
 </head>
 <body class="bg-white">
     <style>
@@ -145,7 +214,9 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
             <p class="text-xl mt-4">Explore our wide range of rental properties</p>
             <form action="index.php" method="get" class="mt-8 flex items-center justify-center">
                 <div class="relative rounded-md shadow-md flex space-x-1">
-                     <input type="text" name="location" placeholder="Enter Location" autocomplete="off" required class="bg-white rounded-md p-4 pr-12 w-80 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent flex-grow">
+                    <div class="autocomplete-container" id="autocomplete-container"></div>
+                    <div class="autocomplete-container" id="autocomplete-container-city"></div>
+                     <!-- <input type="text" name="location" placeholder="Enter Location" autocomplete="off" required class="bg-white rounded-md p-4 pr-12 w-80 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent flex-grow"> -->
                      <select name="property_type" class="bg-white text-gray-400 rounded-md p-4 pr-2 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
                      <option value="">Property Type</option>
                      <option value="Apartment">Apartment</option>
@@ -160,6 +231,132 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
         </div>
     </section>
 
+    <script>
+  function addressAutocomplete(containerElement, callback, options) {
+
+    var inputElement = document.createElement("input");
+    inputElement.setAttribute("type", "text");
+    inputElement.setAttribute("placeholder", options.placeholder);
+    inputElement.setAttribute("id", "location");
+    inputElement.setAttribute("class", "location");
+    inputElement.setAttribute("name", "location");
+    inputElement.setAttribute("autocomplete", "off");
+    containerElement.appendChild(inputElement);
+
+  var currentItems;
+  var currentPromiseReject;
+  var focusedItemIndex;
+
+  inputElement.addEventListener("input", function(e) {
+    var currentValue = this.value;
+
+    /* Close any already open dropdown list */
+    closeDropDownList();
+
+    // Cancel previous request promise
+    if (currentPromiseReject) {
+      currentPromiseReject({
+        canceled: true
+      });
+    }
+
+    /* Create a new promise and send geocoding request */
+    var promise = new Promise((resolve, reject) => {
+      currentPromiseReject = reject;
+
+      var apiKey = "7dacd17594f3471b83275660c476b5bc";
+      var url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(currentValue)}&limit=5&apiKey=${apiKey}`;
+      
+      if (options.type) {
+      	url += `&type=${options.type}`;
+      }
+
+      fetch(url)
+        .then(response => {
+          // check if the call was successful
+          if (response.ok) {
+            response.json().then(data => resolve(data));
+          } else {
+            response.json().then(data => reject(data));
+          }
+        });
+    });
+
+    promise.then((data) => {
+      currentItems = data.features;
+       var cityName = currentItems[0].properties.city;
+        console.log(cityName);
+      var autocompleteItemsElement = document.createElement("div");
+      autocompleteItemsElement.setAttribute("class", "autocomplete-items");
+      containerElement.appendChild(autocompleteItemsElement);
+
+      data.features.forEach((feature, index) => {
+        var itemElement = document.createElement("DIV");
+        itemElement.innerHTML = feature.properties.formatted;
+
+        itemElement.addEventListener("click", function(e) {
+          inputElement.value = currentItems[index].properties.formatted;
+
+          callback(currentItems[index]);
+
+        
+          closeDropDownList();
+        });
+
+        autocompleteItemsElement.appendChild(itemElement);
+      });
+    }, (err) => {
+      if (!err.canceled) {
+        console.log(err);
+      }
+    });
+  });
+
+  function setActive(items, index) {
+    if (!items || !items.length) return false;
+
+    for (var i = 0; i < items.length; i++) {
+      items[i].classList.remove("autocomplete-active");
+    }
+
+    /* Add class "autocomplete-active" to the active element*/
+    items[index].classList.add("autocomplete-active");
+
+    // Change input value and notify
+    inputElement.value = currentItems[index].properties.formatted;
+    callback(currentItems[index]);
+  }
+
+  function closeDropDownList() {
+    var autocompleteItemsElement = containerElement.querySelector(".autocomplete-items");
+    if (autocompleteItemsElement) {
+      containerElement.removeChild(autocompleteItemsElement);
+    }
+
+    focusedItemIndex = -1;
+  }
+  document.addEventListener("click", function(e) {
+    if (e.target !== inputElement) {
+      closeDropDownList();
+    } else if (!containerElement.querySelector(".autocomplete-items")) {
+      // open dropdown list again
+      var event = document.createEvent('Event');
+      event.initEvent('input', true, true);
+      inputElement.dispatchEvent(event);
+    }
+  });
+
+}
+
+
+addressAutocomplete(document.getElementById("autocomplete-container-city"), (data) => {
+  console.log("Selected city: ");
+  console.log(data);
+}, {
+	placeholder: "Enter a city name here",
+  type: "city"
+});
+    </script>
 <?php
 if (mysqli_num_rows($getprops) > 0) {
     echo "<main class='mt-14 mx-10'>";
