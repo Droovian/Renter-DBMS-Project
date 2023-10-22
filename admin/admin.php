@@ -374,10 +374,5 @@ addressAutocomplete(document.getElementById("autocomplete-container-city"), (dat
 
 </html>
 
-<?php
-
-session_destroy();
-
-?>
 
 

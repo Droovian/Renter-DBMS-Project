@@ -15,7 +15,7 @@ require 'phpmailer/src/SMTP.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verification</title>
     <link rel="icon" href="../dist/images/fox-svgrepo-com.svg">
-    <link rel="stylesheet" href="output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
 
@@ -24,12 +24,23 @@ require 'phpmailer/src/SMTP.php';
         <a href="signup.php" class="font-body p-2 ml-4 text-2xl font-semibold invisible sm:visible">Renter</a>
 </div>
     <p class="text-red-500 text-xl font-light text-center"><?php echo $_SESSION['otpfail'];  ?></p>
-    <div class="flex flex-row mx-auto border-2 border-black p-2 w-96 h-auto mt-48">
-        <form action="query.php" class="flex flex-col justify-center mx-auto space-y-4" method="post">
-            <h2 class="mx-auto font-light text-lg">Enter the otp</h2>
-            <input type="number" name="otpverify" autocomplete="off" required
-            class="border-2 border-black w-72 mx-auto p-2">
-            <input type="submit" name="authenticate" value="Authenticate" class="bg-black text-white text-center mt-3 rounded-lg hover:bg-white hover:text-black mx-auto w-auto p-2">
+    <div class="flex justify-center text-center p-3 border-2 border-amber-700 shadow-md">
+        <p class="text-amber-500 text-xl font-body p-2">
+        <?php 
+        if(isset($_POST['signup'])){
+        echo "Email for OTP verification sent to " . $_POST['email'];  
+        }
+        ?>
+     </p>
+    </div>
+    <div class="mt-16 flex justify-center items-center mx-auto border-2 border-black p-2 w-1/2 bg-white h-96 ">
+        <form action="query.php" class="flex flex-col mx-auto space-y-4 h-auto p-7" method="post">
+            <div class="flex flex-row space-x-4">
+                <h2 class="mx-auto font-body text-3xl mr-10 my-auto text-amber-600">Enter the otp</h2>
+                <img src="images/fox.jpg" alt="fox-img" class="w-16">
+            </div>
+            <input type="number" name="otpverify" autocomplete="off" required class="border-2 border-black w-96 mx-auto p-2 mb-4">
+            <input type="submit" name="authenticate" value="Authenticate" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-amber-500 focus:ring-opacity-50 w-1/2 mx-auto">
         </form>
     </div>
 </body>
