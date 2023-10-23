@@ -120,7 +120,7 @@ if(isset($_SESSION['error-messages'])){
             </div>
         </div>
 
-        <form action="handlesubmit.php" method="POST" enctype="multipart/form-data">
+        <form action="handlesubmit.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm();">
             <!-- Property Name -->
             <div class="mb-4">
                 <label for="property_name" class="block text-gray-600 text-sm font-medium mb-2">Property Name</label>
@@ -158,13 +158,15 @@ if(isset($_SESSION['error-messages'])){
 
             <div class="mb-4">
                 <label for="email" class="block text-gray-600 text-sm font-medium mb-2">Email</label>
-                <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
+                <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" oninput="validateForm()" required>
+                <p id="email-message" class="text-red-500 text-xs"></p>
             </div>
 
             <!-- Contact Number -->
             <div class="mb-4">
                 <label for="contact_number" class="block text-gray-600 text-sm font-medium mb-2">Contact Number</label>
-                <input type="tel" id="contact_number" name="contact_number" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
+                <input type="tel" id="contact_number" name="contact_number" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" oninput="validateForm()" required>
+                <p id="phone-message" class="text-red-500 text-xs"></p>
             </div>
 
             <!-- Location -->
@@ -358,6 +360,56 @@ addressAutocomplete(document.getElementById("autocomplete-container-city"), (dat
 	placeholder: "Enter a city name here",
   type: "city"
 });
+
+function validateEmail(email) {
+        if (email === '') {
+            return ''; // No feedback when the input is empty
+        }
+
+        const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+        return emailPattern.test(email) ? '' : 'invalid';
+    }
+
+    function validatePhoneNumber(phoneNumber) {
+        if (phoneNumber === '') {
+            return ''; // No feedback when the input is empty
+        }
+
+        const phonePattern = /^\d{10}$/;
+        return phonePattern.test(phoneNumber) ? '' : 'invalid';
+    }
+
+    function validateForm() {
+        const emailInput = document.querySelector('input[name="email"]');
+        const email = emailInput.value.trim();
+        const emailMessage = document.querySelector('#email-message');
+
+        const phoneInput = document.querySelector('input[name="contact_number"]');
+        const phoneNumber = phoneInput.value.trim();
+        const phoneMessage = document.querySelector('#phone-message');
+
+        // Email validation
+        const emailValidation = validateEmail(email);
+        if (emailValidation === 'invalid') {
+            emailMessage.textContent = 'Email is invalid';
+            emailMessage.style.color = 'red';
+            return false; // Prevent form submission
+        } else {
+            emailMessage.textContent = ''; // No feedback when the input is empty or valid
+        }
+
+        // Phone number validation
+        const phoneValidation = validatePhoneNumber(phoneNumber);
+        if (phoneValidation === 'invalid') {
+            phoneMessage.textContent = 'Phone number is invalid';
+            phoneMessage.style.color = 'red';
+            return false; // Prevent form submission
+        } else {
+            phoneMessage.textContent = ''; // No feedback when the input is empty or valid
+        }
+
+        return true; // Allow form submission if all validations pass
+    }
     </script>
 
 </body>
