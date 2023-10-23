@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-
 ?>
 
 
@@ -26,7 +24,7 @@ session_start();
         <form action="resetcode.php" method="post" class="flex flex-col space-y-4">
             <input type="hidden" name="password_token"value="<?php if(isset($_GET['token'])){echo $_GET['token']; } ?>">
             <label for="">Email Address</label>
-            <input type="email" name="email" autocomplete="off" value="<?php if(isset($_GET['email'])){echo $_GET['email']; } ?>" placeholder="Enter Email Address" class="p-2 border border-gray-400 rounded-md">
+            <input type="email" name="email" autocomplete="off" value="<?php if(isset($_GET['email'])){ echo $_GET['email']; } ?>" placeholder="Enter Email Address" class="p-2 border border-gray-400 rounded-md">
             <label for="">New Password</label>
             <input type="password" name="newpassword" autocomplete="off" placeholder="Enter New Password" class="p-2 border border-gray-400 rounded-md">
             <label for="">Confirm Password</label>
@@ -36,11 +34,3 @@ session_start();
     </div>
 </body>
 </html>
-
-
-<?php
-
-session_destroy();
-
-
-?>

@@ -12,6 +12,7 @@
     <title>Sign Up</title>
     <link rel="icon" href="images/fox-svgrepo-com.svg">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
 </head>
 
 <body class="font-body bg-gray-500 sm:bg-gray-100">
@@ -48,10 +49,13 @@
                                 placeholder="Phone Number" name="phoneno" oninput="validateForm()">
                             <p id="phone-message" class="text-red-500 text-xs"></p>
                             <label for="">Password</label>
+                            <div class="relative mx-auto">
                             <input type="password"
                                 class="p-1 max-w-sm sm:w-60 mx-auto border rounded-md focus:outline-none focus:border-blue-500"
-                                placeholder="Password" name="password" autocomplete="off" required
+                                placeholder="Password" name="password" id="password" autocomplete="off" required
                                 oninput="validateForm()">
+                                <i class="bi bi-eye-slash text-black cursor-pointer absolute top-1 right-1" id="togglePassword"></i>
+                            </div>
                             <p id="password-message" class="text-red-500 text-xs"></p>
                             <input type="hidden" name="otp">
                             <div class="flex flex-col space-y-3 sm:flex-row justify-between items-center p-2">
@@ -65,6 +69,17 @@
                                 class="bg-black text-white text-center rounded-lg hover:bg-white hover:text-black  mx-auto w-32 md:w-1/2 p-2">
                         </form>
                     </div>
+                    <script>
+                    const togglePassword = document.querySelector("#togglePassword");
+                    const password = document.querySelector("#password");
+
+                    togglePassword.addEventListener("click", () => {
+                        const type = password.getAttribute("type") === "password" ? "text" : "password";
+                        password.setAttribute("type", type);
+                        togglePassword.classList.toggle("bi-eye");
+                        togglePassword.classList.toggle("bi-eye-slash");
+                    });
+                   </script>
                 </div>
                 <img src="images/boat.jpg" alt="boat-image" class="invisible md:visible w-1/2 rounded-md">
             </div>

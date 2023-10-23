@@ -52,6 +52,7 @@ if (isset($_POST['login'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Renter</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <link rel="icon" href="images/fox-svgrepo-com.svg">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -120,8 +121,10 @@ if (isset($_POST['login'])) {
                             placeholder="Email" name="email" autocomplete="off" required oninput="validateForm()">
                         <p id="email-message" class="text-red-500 text-xs"></p>
                         <label for="password" class="">Password</label>
-                        <input type="password" class="p-1 w-60 mx-auto border rounded-md focus:outline-none focus:border-blue-500"
-                            placeholder="Password" name="password" autocomplete="off" required>
+                        <div class="relative mx-auto">
+                            <input type="password" class="p-1 max-w-sm sm:w-60 mx-auto border rounded-md focus:outline-none focus:border-blue-500" placeholder="Password" name="password" id="password" autocomplete="off" required>
+                            <i class="bi bi-eye-slash text-black cursor-pointer absolute top-1 right-1" id="togglePassword"></i>
+                        </div>
                         <div class="flex flex-col justify-between space-y-3 items-center p-2  md:flex-row md:items-center">
                             <div class="flex items-center space-x-2 md:mr-24 ">
                                 <input type="checkbox" name="cb" id="cb">
@@ -135,6 +138,17 @@ if (isset($_POST['login'])) {
                     </form>
                 </div>
 
+                <script>
+                    const togglePassword = document.querySelector("#togglePassword");
+                    const password = document.querySelector("#password");
+
+                    togglePassword.addEventListener("click", () => {
+                        const type = password.getAttribute("type") === "password" ? "text" : "password";
+                        password.setAttribute("type", type);
+                        togglePassword.classList.toggle("bi-eye");
+                        togglePassword.classList.toggle("bi-eye-slash");
+                    });
+                </script>
                 <a href="signup.php"
                     class="relative text-white bg-black mt-3 hover:text-black hover:bg-gray-100 text-center rounded-lg mx-auto md:w-1/2 p-2">Sign Up</a>
 
