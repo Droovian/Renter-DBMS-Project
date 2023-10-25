@@ -54,7 +54,7 @@ if (isset($_POST['login'])) {
     <title>Renter</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <link rel="icon" href="images/fox-svgrepo-com.svg">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="output.css">
 </head>
 
 <body class="font-body sm:bg-gray-100">
@@ -183,20 +183,20 @@ if (isset($_POST['login'])) {
                 emailMessage.textContent = ''; // No feedback when the input is empty or valid
             }
         }
-    </script>
 
+    </script>
 </body>
 
 <footer
     class="invisible sm:visible flex justify-between border-black fixed bottom-0 bg-white w-screen">
     <div class="flex flex-row space-x-3 h-12 px-10 items-center">
-        <a href="#"
+        <a data-modal="renter"
             class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1 underline">Renter Corp™️</a>
-        <a href="#"
+        <a data-modal="privacy"
             class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Privacy</a>
-        <a href="#"
+        <a data-modal="jobs"
             class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Jobs</a>
-        <a href="#"
+        <a data-modal="terms"
             class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Terms</a>
     </div>
     <div class="flex flex-row items-center space-x-4 px-10">

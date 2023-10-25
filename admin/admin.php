@@ -184,7 +184,8 @@ if(isset($_SESSION['error-messages'])){
             <!-- Image Upload -->
             <div class="mb-4">
                 <label for="image" class="block text-gray-600 text-sm font-medium mb-2">Upload Image</label>
-                <input type="file" id="image" name="image" class="w-full border rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" accept="image/*" required>
+                <input type="file" id="image" name="image" class="w-full border rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" accept="image/*"  oninput="validateForm()" required>
+                <p id="image-message" class="text-red-500 text-xs"></p>
             </div>
 
             <!-- Submit Button -->
@@ -361,7 +362,7 @@ addressAutocomplete(document.getElementById("autocomplete-container-city"), (dat
   type: "city"
 });
 
-function validateEmail(email) {
+  function validateEmail(email) {
         if (email === '') {
             return ''; // No feedback when the input is empty
         }
@@ -408,9 +409,24 @@ function validateEmail(email) {
             phoneMessage.textContent = ''; // No feedback when the input is empty or valid
         }
 
+        const imageInput = document.querySelector('input[name="image"]');
+        const image = imageInput.files[0];
+        const imageMessage = document.querySelector('#image-message');
+        if (image) {
+        const imageSizeInMB = image.size / (1024 * 1024); // Convert bytes to megabytes
+        if (imageSizeInMB > 5) {
+            imageMessage.textContent = 'Image size must be less than or equal to 5MB';
+            imageMessage.style.color = 'red';
+            return false; // Prevent form submission
+        } 
+        else {
+            imageMessage.textContent = ''; // No feedback when the image size is within the limit
+        }
+    }
+
         return true; // Allow form submission if all validations pass
     }
-    </script>
+</script>
 
 </body>
 
@@ -425,6 +441,3 @@ function validateEmail(email) {
 </footer>
 
 </html>
-
-
-

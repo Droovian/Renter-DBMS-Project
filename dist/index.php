@@ -73,7 +73,7 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Renter</title>
     <link rel="icon" href="images/fox-svgrepo-com.svg">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="output.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
@@ -129,7 +129,7 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
 
     </style>
 </head>
-<body class="bg-white">
+<body class="bg-white font-body">
     <style>
         #map{
             height: 80vh;
@@ -353,7 +353,7 @@ addressAutocomplete(document.getElementById("autocomplete-container-city"), (dat
   console.log("Selected city: ");
   console.log(data);
 }, {
-	placeholder: "Enter a city name here",
+	placeholder: "Enter a location",
   type: "city"
 });
     </script>
