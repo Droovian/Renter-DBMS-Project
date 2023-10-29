@@ -42,6 +42,9 @@ require '../dist/phpmailer/src/SMTP.php';
             <li class="text-gray-600 hover:text-amber-500">
                 <a href="../admin/adminlogin.php">Dashboard</a>
             </li>
+            <li class="text-gray-600 hover:text-amber-500">
+                <a href="../customer-reviews/revlist.php">View Reviews</a>
+            </li>
             <!-- Add other sidebar links here -->
         </ul>
        
@@ -76,6 +79,7 @@ require '../dist/phpmailer/src/SMTP.php';
                 // Check if there are any bookings
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
+                        $_SESSION['propsID'] = $row['property_id'];
                         echo '<tr>';
                         echo '<td class="px-6 py-4 whitespace-nowrap">' . $row['id'] . '</td>';
                         echo '<td class="px-6 py-4 whitespace-nowrap">' . $row['property_id'] . '</td>';

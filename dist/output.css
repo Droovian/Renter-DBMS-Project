@@ -586,10 +586,6 @@ video {
   position: relative;
 }
 
-.inset-0{
-  inset: 0px;
-}
-
 .inset-y-0{
   top: 0px;
   bottom: 0px;
@@ -603,10 +599,6 @@ video {
   bottom: 1rem;
 }
 
-.left-0{
-  left: 0px;
-}
-
 .right-0{
   right: 0px;
 }
@@ -615,28 +607,12 @@ video {
   right: 0.25rem;
 }
 
-.right-3{
-  right: 0.75rem;
-}
-
 .right-4{
   right: 1rem;
 }
 
-.top-0{
-  top: 0px;
-}
-
 .top-1{
   top: 0.25rem;
-}
-
-.top-3{
-  top: 0.75rem;
-}
-
-.z-50{
-  z-index: 50;
 }
 
 .m-0{
@@ -673,10 +649,6 @@ video {
 
 .mb-5{
   margin-bottom: 1.25rem;
-}
-
-.mb-6{
-  margin-bottom: 1.5rem;
 }
 
 .ml-4{
@@ -727,10 +699,6 @@ video {
   margin-top: 2rem;
 }
 
-.mt-5{
-  margin-top: 1.25rem;
-}
-
 .block{
   display: block;
 }
@@ -779,10 +747,6 @@ video {
   height: 100%;
 }
 
-.h-screen{
-  height: 100vh;
-}
-
 .min-h-screen{
   min-height: 100vh;
 }
@@ -793,10 +757,6 @@ video {
 
 .w-10{
   width: 2.5rem;
-}
-
-.w-11\/12{
-  width: 91.666667%;
 }
 
 .w-16{
@@ -837,10 +797,6 @@ video {
 
 .w-screen{
   width: 100vw;
-}
-
-.max-w-md{
-  max-width: 28rem;
 }
 
 .max-w-sm{
@@ -942,10 +898,6 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.75rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.75rem * var(--tw-space-y-reverse));
-}
-
-.overflow-y-auto{
-  overflow-y: auto;
 }
 
 .rounded{
@@ -1140,14 +1092,6 @@ video {
   padding-right: 0.5rem;
 }
 
-.pl-0{
-  padding-left: 0px;
-}
-
-.pt-0{
-  padding-top: 0px;
-}
-
 .text-left{
   text-align: left;
 }
@@ -1245,19 +1189,9 @@ video {
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
-.text-gray-500{
-  --tw-text-opacity: 1;
-  color: rgb(107 114 128 / var(--tw-text-opacity));
-}
-
 .text-gray-600{
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity));
-}
-
-.text-gray-700{
-  --tw-text-opacity: 1;
-  color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 
 .text-green-700{
@@ -1277,10 +1211,6 @@ video {
 
 .underline{
   text-decoration-line: underline;
-}
-
-.opacity-60{
-  opacity: 0.6;
 }
 
 .shadow{
@@ -1383,11 +1313,6 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.hover\:text-amber-500:hover{
-  --tw-text-opacity: 1;
-  color: rgb(245 158 11 / var(--tw-text-opacity));
-}
-
 .hover\:text-amber-800:hover{
   --tw-text-opacity: 1;
   color: rgb(146 64 14 / var(--tw-text-opacity));
@@ -1396,11 +1321,6 @@ video {
 .hover\:text-black:hover{
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
-.hover\:text-gray-700:hover{
-  --tw-text-opacity: 1;
-  color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 
 .hover\:underline-offset-1:hover{

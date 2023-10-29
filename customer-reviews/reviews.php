@@ -40,7 +40,7 @@
 </div>
 
 <section class="container max-w-md mx-auto mt-8 p-4 bg-white rounded-md shadow-md h-screen flex justify-center items-center">
-    <div class="w-full max-w-md"> <!-- Add a max width to center the content -->
+    <div class="w-full max-w-md"> 
         <div class="flex justify-between">
              <h1 class="text-2xl font-semibold text-center mt-3 mb-6">Write a Review</h1>
              <img src="../dist/images/fox.jpg" alt="fox-image" class="w-16">
