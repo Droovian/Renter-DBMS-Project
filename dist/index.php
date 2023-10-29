@@ -149,24 +149,6 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
     </div>
 </div>
 
-<div id="termsModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
-  <div class="modal-bg fixed inset-0 bg-black opacity-60"></div>
-  <div class="modal-content bg-white w-11/12 max-w-md p-4 rounded-lg relative">
-    <span id="closeModal" class="modal-close absolute top-3 right-3 cursor-pointer text-gray-500 hover:text-gray-700 text-2xl">&times;</span>
-    <h2 class="text-2xl font-bold mb-4">Terms and Conditions</h2>
-    <p class="text-gray-700">This is the content of your terms and conditions.</p>
-  </div>
-</div>
-
-<style>
-    .modal-bg{
-        z-index: -1;
-    }
-
-    .modal-content{
-        z-index: 1;
-    }
-</style>
 <div id="sidebar" class="fixed inset-y-0 right-0 w-64 bg-white border-l border-gray-300 shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out h-[70vh]">
     <!-- Header with user's name (displayed after login) -->
     <div id="sidebarHeader" class="bg-amber-500 text-white p-4">
@@ -196,6 +178,27 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
             echo '<input type="hidden" name="check" value="' . $_SESSION["check"] . '">';
             echo '<button type="submit" name="my_bookings" class="bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">My Bookings</button>';
             echo '</form>';
+
+            if (isset($_SESSION['check'])) {
+                $email = $_SESSION['check'];
+            
+                $checkBookingQuery = "SELECT * FROM bookings WHERE email = ? AND status = 'confirmed'";
+                $stmt = mysqli_prepare($conn, $checkBookingQuery);
+            
+                if ($stmt) {
+                    mysqli_stmt_bind_param($stmt, "s", $email);
+                    mysqli_stmt_execute($stmt);
+                    $result = mysqli_stmt_get_result($stmt);
+                    mysqli_stmt_close($stmt);
+            
+                    if (mysqli_num_rows($result) > 0) {
+                        // Display the "Reviews" button if there are confirmed bookings
+                        echo '<form action="../customer-reviews/reviews.php" method="post">';
+                        echo '<button type="submit" name="reviews" class="mt-4 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50">Reviews</button>';
+                        echo '</form>';
+                    }
+                }
+            }
         }
         ?>
     </div>
