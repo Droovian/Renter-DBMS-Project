@@ -54,7 +54,7 @@ if (isset($_POST['confirm_booking'])){
                 // Set email content
                 $mail->isHTML(true);
                 $mail->Subject = 'Booking Confirmation';
-                $mail->Body = 'Your booking has been ' . $status;
+                $mail->Body = 'Your booking has been ' . $status . ' by the Owner.';
                 
                 // Send the email
                 if ($mail->send()) {
@@ -62,7 +62,7 @@ if (isset($_POST['confirm_booking'])){
                     echo '<p class="text-green-500 text-center mb-4">Booking confirmation email sent successfully.</p>';
                 } else {
                     // Email sending failed
-                    echo '<p class="text-red-500 text-center mb-4">Email sending failed. Please try again later.</p>';
+                    echo '<p class="text-red-500 text-center mb-4">An Error Occured.</p>';
                 }
             }
         }

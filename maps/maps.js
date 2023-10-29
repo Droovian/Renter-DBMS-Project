@@ -1,4 +1,22 @@
 // Declare the marker variable
+const termsButton = document.getElementById('termsButton');
+const termsModal = document.getElementById('termsModal');
+const closeModal = document.getElementById('closeModal');
+
+termsButton.addEventListener('click', function() {
+  termsModal.classList.remove('hidden');
+});
+
+closeModal.addEventListener('click', function() {
+  termsModal.classList.add('hidden');
+});
+
+window.addEventListener('click', function(event) {
+  if (event.target === termsModal) {
+    termsModal.classList.add('hidden');
+  }
+});
+
 let marker;
 
 // Initialize the map

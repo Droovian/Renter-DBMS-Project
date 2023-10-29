@@ -40,7 +40,7 @@ require '../dist/phpmailer/src/SMTP.php';
     <div class="sidebar bg-white h-screen fixed top-0 left-0 overflow-y-auto">
         <ul>
             <li class="text-gray-600 hover:text-amber-500">
-                <a href="#">Dashboard</a>
+                <a href="../admin/adminlogin.php">Dashboard</a>
             </li>
             <!-- Add other sidebar links here -->
         </ul>

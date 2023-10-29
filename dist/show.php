@@ -27,9 +27,12 @@
         }
     } 
     else {
-        echo "No matching records found in bookings"; 
-        echo "<br>";
-        echo "Invalid customer ID or no bookings found for this customer ID.";
+        echo '
+        <script>
+            alert("No Booking Matches entered Customer ID");
+            window.location.href = "id.php";
+        </script>';
+
         exit;
     }
 
@@ -51,6 +54,7 @@
     <meta charset="utf-8">
     <title>Details of Booking</title>
     <link rel="icon" href="images/fox-svgrepo-com.svg">
+    <link rel="stylesheet" href="output.css">
 </head>
 <body>
     <header>
@@ -110,6 +114,10 @@
         </div>
     </aside>
 </body>
+
+<div>
+    <a href="id.php" class="return-button">Go Back</a>
+</div>
 </html>
 
 
@@ -139,6 +147,9 @@
 	vertical-align: top;
 }
 
+.return-button{
+    margin-top: 10px;
+}
 /* content editable */
 
 *[contenteditable] { border-radius: 0.25em; min-width: 1em; outline: 0; }

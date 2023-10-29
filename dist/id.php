@@ -10,7 +10,7 @@ include("database.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My bookings</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="output.css">
     <link rel="icon" href="../dist/images/fox-svgrepo-com.svg">
 </head>
 <body class="bg-gray-100 font-body">

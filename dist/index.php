@@ -149,6 +149,24 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
     </div>
 </div>
 
+<div id="termsModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+  <div class="modal-bg fixed inset-0 bg-black opacity-60"></div>
+  <div class="modal-content bg-white w-11/12 max-w-md p-4 rounded-lg relative">
+    <span id="closeModal" class="modal-close absolute top-3 right-3 cursor-pointer text-gray-500 hover:text-gray-700 text-2xl">&times;</span>
+    <h2 class="text-2xl font-bold mb-4">Terms and Conditions</h2>
+    <p class="text-gray-700">This is the content of your terms and conditions.</p>
+  </div>
+</div>
+
+<style>
+    .modal-bg{
+        z-index: -1;
+    }
+
+    .modal-content{
+        z-index: 1;
+    }
+</style>
 <div id="sidebar" class="fixed inset-y-0 right-0 w-64 bg-white border-l border-gray-300 shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out h-[70vh]">
     <!-- Header with user's name (displayed after login) -->
     <div id="sidebarHeader" class="bg-amber-500 text-white p-4">
@@ -490,13 +508,14 @@ mysqli_close($conn);
         <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1 underline">Renter Corp™️</a>
         <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Privacy</a>
         <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Jobs</a>
-        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Terms</a>
+        <button id="termsButton" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Terms</button>
     </div>
     <div class="flex flex-row items-center space-x-4 px-10">
         <img src="images/reshot-icon-globe-PL5973EKAD.svg" class="w-5" alt="the-globe">
         
     </div>
 </footer>
+
 
 <script src="../maps/maps.js" defer></script>
 </body>
