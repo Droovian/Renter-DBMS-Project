@@ -88,12 +88,15 @@ require '../dist/phpmailer/src/SMTP.php';
                         echo '<td class="px-6 py-4 whitespace-nowrap">' . $row['check_in'] . '</td>';
                         echo '<td class="px-6 py-4 whitespace-nowrap">' . $row['check_out'] . '</td>';
                         echo '<td class="px-6 py-4 whitespace-nowrap">' . $row['status'] . '</td>';
+                        echo '<td class="px-6 py-4 whitespace-nowrap">' . $row['payment_status'] . '</td>';
             // Add Confirm button with a form to update the status
                         echo '<td class="px-6 py-4 whitespace-nowrap">';
                         echo '<form method="post" action="update_status.php">';
                         echo '<input type="hidden" name="booking_id" value="' . $row['id'] . '">';
                         echo '<button type="submit" name="confirm_booking" value="confirmed" class="bg-green-500 text-white px-2 py-1 rounded">Confirm</button><br><br>';
+                        if($row['status'] !== 'confirmed'){
                         echo '<button type="submit" name="confirm_booking" value="rejected" class="bg-amber-700 text-white px-4 py-1 rounded">Reject</button>';
+                        }
                         echo '</form>';
                         echo '</td>';
                         echo '</tr>';

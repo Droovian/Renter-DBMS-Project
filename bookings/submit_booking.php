@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 include("../dist/database.php");
@@ -52,11 +53,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Check if the insertion was successful
         if (mysqli_affected_rows($conn) > 0) {
+            $_SESSION['bookingname'] = $name;
+            $_SESSION['bookingemail'] = $email;
+            $_SESSION['bookingmobile'] = $mobile;
             // Get the customer ID for the last inserted booking
             $customerID = mysqli_insert_id($conn);
 
             // Display a success message with the customer ID and redirect the user back to the booking page
-            echo '<script>alert("Booking application has been sent.\nCustomer ID is: ' . $customerID . '\nPlease remember it."); window.location.href = "booking.php?property_id=' . $propertyID . '";</script>';
+            echo '<script>alert("Booking application has been sent.\nCustomer ID is: ' . $customerID . '\nPlease remember it.\nYou will be now redirected to Payments!"); window.location.href = "payscript.php";</script>';
             exit();
         } else {
             echo "Error submitting the booking. Please try again.";

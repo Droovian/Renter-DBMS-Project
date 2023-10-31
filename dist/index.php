@@ -73,59 +73,59 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Renter</title>
     <link rel="icon" href="images/fox-svgrepo-com.svg">
-    <link rel="stylesheet" href="output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
-    
+     <script src="../maps/maps.js" defer></script>
      <style>
-.autocomplete-container input {
-  width: 100%;
-  height: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: none; /* Remove the border */
-  border-radius: 0.375rem;
-}
+            .autocomplete-container input {
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: none; /* Remove the border */
+            border-radius: 0.375rem;
+            }
 
-/* Update the focus styles for the input field */
-.autocomplete-container input:focus {
-  background-color: #fff; /* White background on focus */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Subtle box shadow on focus */
-}
+            /* Update the focus styles for the input field */
+            .autocomplete-container input:focus {
+            background-color: #fff; /* White background on focus */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Subtle box shadow on focus */
+            }
 
-/* Update the autocomplete dropdown styles */
-.autocomplete-items {
-  position: absolute;
-  width: 50%;
-  border-radius: 0.375rem;
-  z-index: 99;
-  top: calc(100% + 2px);
-  left: 0;
-  right: 0;
-  border: none; /* Remove the border */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight box shadow */
-  background-color: #fff;
-}
+            /* Update the autocomplete dropdown styles */
+            .autocomplete-items {
+            position: absolute;
+            width: 50%;
+            border-radius: 0.375rem;
+            z-index: 99;
+            top: calc(100% + 2px);
+            left: 0;
+            right: 0;
+            border: none; /* Remove the border */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight box shadow */
+            background-color: #fff;
+            }
 
-/* Update the suggestion item styles */
-.autocomplete-items div {
-  padding: 10px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
+            /* Update the suggestion item styles */
+            .autocomplete-items div {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            }
 
-.autocomplete-items div:hover {
-  background-color: #f0f4f8; 
-}
+            .autocomplete-items div:hover {
+            background-color: #f0f4f8; 
+            }
 
-.autocomplete-items .autocomplete-active {
-  background-color: #2563eb; 
-  color: #fff; 
-}
+            .autocomplete-items .autocomplete-active {
+            background-color: #2563eb; 
+            color: #fff; 
+            }
 
     </style>
 </head>
@@ -165,18 +165,18 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
         else
         {
             echo '<form action="logout.php" method="post">';
-            echo '<button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-10 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-red-500 focus:ring-opacity-50">Logout</button>';
+            echo '<button type="submit" class="w-60 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-10 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-red-500 focus:ring-opacity-50">Logout</button>';
             echo '</form>';
             echo '<br>';
             echo '
-            <button class="bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            <button class="w-60 bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">
                 <a href="../admin/admin.php">List your Property</a>
             </button>
             ';
             echo '<br>';
             echo '<form action="id.php" method="post">';
             echo '<input type="hidden" name="check" value="' . $_SESSION["check"] . '">';
-            echo '<button type="submit" name="my_bookings" class="bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">My Bookings</button>';
+            echo '<button type="submit" name="my_bookings" class="w-60 bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">My Bookings</button>';
             echo '</form>';
 
             if (isset($_SESSION['check'])) {
@@ -194,7 +194,7 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
                     if (mysqli_num_rows($result) > 0) {
                         // Display the "Reviews" button if there are confirmed bookings
                         echo '<form action="../customer-reviews/reviews.php" method="post">';
-                        echo '<button type="submit" name="reviews" class="mt-4 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50">Reviews</button>';
+                        echo '<button type="submit" name="reviews" class="w-60 mt-4 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50">Reviews</button>';
                         echo '</form>';
                     }
                 }
@@ -239,10 +239,10 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
                     <div class="autocomplete-container" id="autocomplete-container-city"></div>
                      <!-- <input type="text" name="location" placeholder="Enter Location" autocomplete="off" required class="bg-white rounded-md p-4 pr-12 w-80 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent flex-grow"> -->
                      <select name="property_type" class="bg-white text-gray-400 rounded-md p-4 pr-2 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
-                     <option value="">Property Type</option>
-                     <option value="Apartment">Apartment</option>
-                     <option value="House">House</option>
-                     <option value="Condo">Condo</option>
+                        <option value="">Property Type</option>
+                        <option value="Apartment">Apartment</option>
+                        <option value="House">House</option>
+                        <option value="Condo">Condo</option>
                      </select>
                  <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-amber-500 focus:ring-opacity-50">
                   Search
@@ -509,9 +509,7 @@ mysqli_close($conn);
 <footer class="flex justify-between border-black fixed bottom-0 bg-white w-screen">
     <div class="flex flex-row space-x-3 h-12 px-10 items-center">
         <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1 underline">Renter Corp™️</a>
-        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Privacy</a>
-        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Jobs</a>
-        <button id="termsButton" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Terms</button>
+        <a href="#bottom-of-page" class="text-amber-700 text-sm underline">Show Maps ↓ </a>
     </div>
     <div class="flex flex-row items-center space-x-4 px-10">
         <img src="images/reshot-icon-globe-PL5973EKAD.svg" class="w-5" alt="the-globe">
@@ -519,8 +517,18 @@ mysqli_close($conn);
     </div>
 </footer>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('a[href="#bottom-of-page"]').addEventListener('click', function(event) {
+        event.preventDefault(); 
+        const element = document.getElementById("map");
+        element.scrollIntoView({ behavior: "smooth" }); 
+    });
+});
+</script>
 
-<script src="../maps/maps.js" defer></script>
+
+
 </body>
 
 </html>

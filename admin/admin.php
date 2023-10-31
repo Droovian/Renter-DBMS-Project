@@ -434,8 +434,6 @@ addressAutocomplete(document.getElementById("autocomplete-container-city"), (dat
     <div class="flex flex-row space-x-3 h-12 px-10 items-center">
         <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1 underline">Renter Corp™️</a>
         <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Privacy</a>
-        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Jobs</a>
-        <a href="#" class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Terms</a>
     </div>
     
 </footer>
