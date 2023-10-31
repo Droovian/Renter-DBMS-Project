@@ -56,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['bookingname'] = $name;
             $_SESSION['bookingemail'] = $email;
             $_SESSION['bookingmobile'] = $mobile;
+            $_SESSION['check-in'] = $_POST['check-in'];
             // Get the customer ID for the last inserted booking
             $customerID = mysqli_insert_id($conn);
 

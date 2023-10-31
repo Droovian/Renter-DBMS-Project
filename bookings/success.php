@@ -10,8 +10,8 @@ session_start();
 
    if(isset($_SESSION['bookingemail'])){
         $bookingEmail = $_SESSION['bookingemail'];
-
-        $sql = "UPDATE bookings set payment_status = true WHERE email = ?";
+        $check_in_date = $_SESSION['check-in'];
+        $sql = "UPDATE bookings set payment_status = true WHERE email = ? AND check_in = '$check_in_date'";
 
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $bookingEmail);

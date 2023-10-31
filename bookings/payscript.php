@@ -1,6 +1,6 @@
 <?php
 session_start();
-$apiKey = '';
+$apiKey = 'rzp_test_3o4fXyDTQEHKwu';
 ?>
 
 
