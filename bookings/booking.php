@@ -5,6 +5,7 @@ include("../dist/database.php");
 
 // Get the property ID from the query parameter
 $propertyID = isset($_GET['property_id']) ? $_GET['property_id'] : null;
+$propertyName = isset($_GET['property_name']) ? $_GET['property_name'] : null;
 
 if ($propertyID !== null) {
     // Fetch property details based on the propertyID from the database
@@ -44,6 +45,7 @@ mysqli_close($conn);
     <link rel="icon" href="../dist/images/fox-svgrepo-com.svg">
     <title>Renter - Booking Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
 </head>
 <style>
         /* Sidebar styles */
@@ -88,10 +90,13 @@ mysqli_close($conn);
             <label for="email" class="block text-gray-600 font-semibold">Your Email</label>
             <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-amber-500" required>
         </div>
+  
         <div class="mb-4">
             <label for="mobile" class="block text-gray-600 font-semibold">Mobile Number</label>
             <input type="tel" id="mobile" name="mobile" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-amber-500" required>
         </div>
+
+    <div class="flex justify-between space-x-3">
         <div class="mb-4">
             <label for="check-in" class="block text-gray-600 font-semibold">Check-In Date</label>
             <input type="date" id="check-in" name="check-in" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-amber-500" required>
@@ -100,10 +105,45 @@ mysqli_close($conn);
             <label for="check-out" class="block text-gray-600 font-semibold">Check-Out Date</label>
             <input type="date" id="check-out" name="check-out" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-amber-500" required>
         </div>
+    </div>
         <div class="mb-4">
             <label for="message" class="block text-gray-600 font-semibold">Message (optional)</label>
             <textarea id="message" name="message" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-amber-500" rows="4"></textarea>
         </div>
+        <div class="flex justify-between">
+        <label for="message" class="block text-gray-600 font-semibold">View on a Map</label>
+        <button onclick="geocodeLocation()" class="block text-gray-600 font-semibold">Fetch</button>
+        </div>
+        <div id="map" class=" mb-4 border border-gray-300 max-w-md h-72 rounded-md"></div>
+        <input type="hidden" id="locationInput" name="locationInput" value="<?php echo $propertyName ?>">
+        
+        <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+     <script>
+		var map = L.map('map').setView([15.286691, 73.969780], 10);
+		mapLink = "<a href='http://openstreetmap.org'>OpenStreetMap</a>";
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: 'Leaflet &copy; ' + mapLink + ', contribution', maxZoom: 18 }).addTo(map);
+
+		function geocodeLocation() {
+			var locationInput = document.getElementById('locationInput').value;
+			fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + locationInput)
+				.then(response => response.json())
+				.then(data => {
+                    console.log(data);
+					if (data && data[0]) {
+						var lat = parseFloat(data[0].lat);
+						var lon = parseFloat(data[0].lon);
+
+						var newMarker = L.marker([lat, lon]).addTo(map);
+						map.setView([lat, lon], 11);
+					} else {
+						alert('Location provided by seller cannot be fetched, please contact seller!');
+					}
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		}
+	</script> 
         <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-amber-500 focus:ring-opacity-50">Go To Payment</button>
     </form>
 </section>

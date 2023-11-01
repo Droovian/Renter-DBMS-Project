@@ -401,7 +401,7 @@ if (mysqli_num_rows($getprops) > 0) {
                 <p class='text-xl font-bold mt-4'>₹$rent_amount per night</p>
             </div>
             <button class='absolute bottom-4 right-4 bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-amber-500 focus:ring-opacity-50'>
-            <a href='../bookings/booking.php?property_id=$propertyID'>Rent</a>
+            <a href='../bookings/booking.php?property_id=$propertyID&property_name=" . urlencode($name) . "'>Rent</a>
     </button>
         </div>";
     }
