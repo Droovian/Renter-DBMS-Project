@@ -169,26 +169,18 @@ if(isset($_SESSION['error-messages'])){
                 <p id="phone-message" class="text-red-500 text-xs"></p>
             </div>
 
-            <!-- Location -->
-            <!-- <div class="mb-4">
-                <label for="location" class="block text-gray-600 text-sm font-medium mb-2">Location</label>
-                 <input type="text" id="location" name="location"  class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
-                 
-            </div> -->
             <div class="mb-4">
                  <label for="location" class="block text-gray-600 text-sm font-medium mb-2">Location</label>
                  <div class="autocomplete-container" id="autocomplete-container"></div>
             </div>
     
             <div class="autocomplete-container" id="autocomplete-container-city"></div>
-            <!-- Image Upload -->
             <div class="mb-4">
                 <label for="image" class="block text-gray-600 text-sm font-medium mb-2">Upload Image</label>
                 <input type="file" id="image" name="image" class="w-full border rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" accept="image/*"  oninput="validateForm()" required>
                 <p id="image-message" class="text-red-500 text-xs"></p>
             </div>
 
-            <!-- Submit Button -->
             <div class="text-center">
                 <button type="submit" class="bg-amber-500 text-white py-2 px-4 rounded-md hover:bg-amber-600 focus:outline-none focus:bg-amber-600">Submit</button>
             </div>

@@ -1,4 +1,4 @@
-console.log("Hello");
+
 let marker;
 
 const map = L.map('map').setView([15.496777, 73.827827], 13);

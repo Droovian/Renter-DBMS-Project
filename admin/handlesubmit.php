@@ -58,8 +58,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Check image upload errors and size
     if ($image["error"] !== UPLOAD_ERR_OK) {
         $errors[] = "Image upload failed. Please try again.";
-    } elseif ($image["size"] > 10 * 1024 * 1024) { // 10MB limit
-        $errors[] = "Image size exceeds the maximum limit (10MB).";
+    } elseif ($image["size"] > 5 * 1024 * 1024) { 
+        $errors[] = "Image size exceeds the maximum limit (5MB).";
     }
 
     if (empty($errors)) {
@@ -76,8 +76,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         $image_path = "../dist/images/" . basename($image["name"]);
-        move_uploaded_file($image["tmp_name"], $image_path);
+        move_uploaded_file($image['tmp_name'], $image_path);
 
+       
         $sql = "INSERT INTO property_listings (property_name, property_type, rent_amount, description, name, email, contact_number, location, image_path)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);

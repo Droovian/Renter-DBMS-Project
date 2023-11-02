@@ -7,6 +7,7 @@ include("../dist/database.php");
 $propertyID = isset($_GET['property_id']) ? $_GET['property_id'] : null;
 $propertyName = isset($_GET['property_name']) ? $_GET['property_name'] : null;
 
+$_SESSION['propsname'] = $propertyName;
 if ($propertyID !== null) {
     // Fetch property details based on the propertyID from the database
     $sql = "SELECT * FROM property_listings WHERE id = ?";
@@ -112,7 +113,7 @@ mysqli_close($conn);
         </div>
         <div class="flex justify-between">
         <label for="message" class="block text-gray-600 font-semibold">View on a Map</label>
-        <button onclick="geocodeLocation()" class="block text-gray-600 font-semibold">Fetch</button>
+        <button id='fetch-button' class="block text-gray-600 font-semibold">Fetch</button>
         </div>
         <div id="map" class=" mb-4 border border-gray-300 max-w-md h-72 rounded-md"></div>
         <input type="hidden" id="locationInput" name="locationInput" value="<?php echo $propertyName ?>">
@@ -128,7 +129,6 @@ mysqli_close($conn);
 			fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + locationInput)
 				.then(response => response.json())
 				.then(data => {
-                    console.log(data);
 					if (data && data[0]) {
 						var lat = parseFloat(data[0].lat);
 						var lon = parseFloat(data[0].lon);
@@ -144,7 +144,7 @@ mysqli_close($conn);
 				});
 		}
 	</script> 
-        <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-amber-500 focus:ring-opacity-50">Go To Payment</button>
+        <button type="submit" name='submission' class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-amber-500 focus:ring-opacity-50">Go To Payment</button>
     </form>
 </section>
 
@@ -154,6 +154,14 @@ mysqli_close($conn);
     document.addEventListener('DOMContentLoaded', function () {
         // Get form element
         const form = document.querySelector('#booking-form');
+
+        const fetchButton = document.querySelector('#fetch-button');
+
+        fetchButton.addEventListener('click' ,(event)=>{
+            event.preventDefault();
+
+            geocodeLocation();
+        });
 
         // Add an event listener to the form submission
         form.addEventListener('submit', function (event) {

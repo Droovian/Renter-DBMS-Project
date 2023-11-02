@@ -229,7 +229,7 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
     
 </div>
 
-<section class="hero bg-[url('../dist/images/pano.jpg')] bg-cover text-center py-24">
+<section class="hero bg-[url('../dist/images/pano.jpg')] bg-cover text-center py-24" loading='lazy'>
         <div class="container mx-auto">
             <h1 class="text-4xl font-bold">Find Your Dream Rental</h1>
             <p class="text-xl mt-4">Explore our wide range of rental properties</p>
@@ -393,7 +393,7 @@ if (mysqli_num_rows($getprops) > 0) {
         
         echo "
         <div class='bg-white rounded-lg shadow-md relative'>
-            <img src='$imagepath' alt='Property Image' class='rounded-t-lg w-full h-64  object-cover'>
+            <img src='$imagepath' alt='Property Image' class='rounded-t-lg w-full h-64  object-cover' loading='lazy'>
             <div class='p-4'>
                 <p class='text-xl font-semibold'>$name</p>
                 <p class='text-gray-600'>$location</p>

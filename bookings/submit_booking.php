@@ -1,9 +1,8 @@
-
 <?php
 session_start();
 include("../dist/database.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["submission"]))) {
     // Retrieve form data and validate/sanitize it
     $propertyID = isset($_GET['property_id']) ? $_GET['property_id'] : null;
     $name = isset($_POST['name']) ? $_POST['name'] : '';
@@ -18,15 +17,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check for date availability
     $dateAvailable = true;
 
+    // Check if the selected dates overlap with existing bookings
     $sql = "SELECT * FROM bookings WHERE property_id = ? AND (
         (check_in <= ? AND check_out >= ?)
         OR (check_in <= ? AND check_out >= ?)
+        OR (check_in >= ? AND check_out <= ?)
     )";
-    
+
     $stmt = mysqli_prepare($conn, $sql);
 
     if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "issss", $propertyID, $checkIn, $checkOut, $checkIn, $checkOut);
+        mysqli_stmt_bind_param($stmt, "issssss", $propertyID, $checkIn, $checkOut, $checkIn, $checkOut, $checkIn, $checkOut);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
 
@@ -39,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // If the selected dates are not available, display an error message
     if (!$dateAvailable) {
-        echo '<script>alert("Selected Dates are not available. Please choose different dates."); window.location.href = "booking.php?property_id=' . $propertyID . '";</script>';
+        echo '<script>alert("Selected Dates are not available. Please choose different dates."); window.location.href = "booking.php?property_id=' . $propertyID .  '&property_name=' . $_SESSION['propsname'] .' ";</script>';
         exit();
     }
 
@@ -74,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_close($conn);
 } else {
     // Redirect the user back to the booking page if they access this script directly
-    header("Location: booking.php?property_id=" . $propertyID);
+    header("Location: booking.php?property_id=" . $propertyID . "&property_name=" . $propertyName);
     exit();
 }
 ?>
