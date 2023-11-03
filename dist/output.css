@@ -771,6 +771,10 @@ video {
   width: 1.25rem;
 }
 
+.w-60{
+  width: 15rem;
+}
+
 .w-64{
   width: 16rem;
 }
@@ -797,10 +801,6 @@ video {
 
 .w-screen{
   width: 100vw;
-}
-
-.w-60{
-  width: 15rem;
 }
 
 .max-w-sm{

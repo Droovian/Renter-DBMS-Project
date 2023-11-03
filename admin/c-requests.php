@@ -2,11 +2,6 @@
 session_start();
 include("../dist/database.php");
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-require '../dist/phpmailer/src/Exception.php';
-require '../dist/phpmailer/src/PHPMailer.php';
-require '../dist/phpmailer/src/SMTP.php';
 ?>
 
 <!DOCTYPE html>
@@ -42,18 +37,10 @@ require '../dist/phpmailer/src/SMTP.php';
             <li class="text-gray-600 hover:text-amber-500">
                 <a href="../admin/adminlogin.php">Dashboard</a>
             </li>
-            <li class="text-gray-600 hover:text-amber-500">
-                <a href="../customer-reviews/revlist.php">View Reviews</a>
-            </li>
-            <li class="text-gray-600 hover:text-amber-500">
-                <a href="c-requests.php">View Cancellation Requests</a>
-            </li>
-            <!-- Add other sidebar links here -->
         </ul>
        
     </div>
     
-    <!-- Main Content -->
     <div class="ml-64 p-4 w-full">
         <h1 class="text-2xl font-semibold mb-4">Booking Details</h1>
         <!-- Table to display booking details -->
@@ -76,7 +63,7 @@ require '../dist/phpmailer/src/SMTP.php';
                 $id = $_SESSION['id'];
                 // echo $emailadmin;
                 // Query to retrieve booking data from the "bookings" table
-                $sql = "SELECT * FROM bookings WHERE property_id='$id'";
+                $sql = "SELECT * FROM bookings WHERE property_id='$id' AND status='c-request' ";
                 $result = mysqli_query($conn, $sql);
 
                 // Check if there are any bookings
@@ -90,22 +77,19 @@ require '../dist/phpmailer/src/SMTP.php';
                         echo '<td class="px-6 py-4 whitespace-nowrap">' . $row['email'] . '</td>';
                         echo '<td class="px-6 py-4 whitespace-nowrap">' . $row['check_in'] . '</td>';
                         echo '<td class="px-6 py-4 whitespace-nowrap">' . $row['check_out'] . '</td>';
-                        echo '<td class="px-6 py-4 whitespace-nowrap">' . $row['status'] . '</td>';
-                        echo '<td class="px-6 py-4 whitespace-nowrap">' . $row['payment_status'] . '</td>';
-            // Add Confirm button with a form to update the status
+        
                         echo '<td class="px-6 py-4 whitespace-nowrap">';
-                        echo '<form method="post" action="update_status.php">';
+                        echo '<form method="post" action="cancelbooking.php">';
                         echo '<input type="hidden" name="booking_id" value="' . $row['id'] . '">';
-                        echo '<button type="submit" name="confirm_booking" value="confirmed" class="bg-green-500 text-white px-2 py-1 rounded">Confirm</button><br><br>';
-                        if($row['status'] !== 'confirmed'){
-                        echo '<button type="submit" name="confirm_booking" value="rejected" class="bg-amber-700 text-white px-4 py-1 rounded">Reject</button>';
-                        }
+                        echo '<input type="hidden" name="stats" value="' . $row['status'] . '">';
+                        echo '<input type="hidden" name="mail" value="' . $row['email'] . '">';
+                        echo '<button type="submit" name="approve_c" class="bg-black text-white px-3 py-2 rounded">Approve</button><br><br>';
                         echo '</form>';
                         echo '</td>';
                         echo '</tr>';
                     }
                 } else {
-                    echo '<tr><td colspan="6" class="px-6 py-4 whitespace-nowrap">No bookings found.</td></tr>';
+                    echo '<tr><td colspan="6" class="px-6 py-4 whitespace-nowrap">No cancellation requests found.</td></tr>';
                 }
                 ?>
             </tbody>

@@ -1,9 +1,14 @@
 <?php
-    session_start();
-    include("database.php");
+ session_start();
+ include("database.php");
+?>
+
+<?php
+   
     $pid = $_POST['check'];
     $Cid = $_POST['idx'];
    
+    
     $sql = "SELECT * FROM bookings WHERE email = '$pid' and id= '$Cid'";
     $re = mysqli_query($conn, $sql);
 
@@ -35,18 +40,19 @@
 
         exit;
     }
-
-
-	    
 	    $title =  $roww['property_name'];
 		$Fname = $row['name'];
 		$status = $row['status'];
 		$email = $row['email'];
 		$phone = $row['mobile'];
 		$emaill = $roww['email'];
+        $_SESSION['emaill'] = $emaill;
+        $_SESSION['fname'] = $Fname;
 		$phonee = $roww['contact_number'];
 		$cin_date = $row['check_in'];
-		$cout_date = $row['check_out'];									
+        $_SESSION['cin_date'] =  $cin_date;
+		$cout_date = $row['check_out'];		
+        $_SESSION['cout_date'] =  $cout_date;							
 	?>
 <!DOCTYPE html>
 <html lang="en">
@@ -107,6 +113,14 @@
         <br>
         <!-- Add more content here -->
     </article>
+    <div class='mt-3'>
+        <form action="cancellation.php" method='post'>
+        <input type="hidden" name="email_id" value='<?php echo $pid;  ?>'>
+        <input type="hidden" name="property_id" value='<?php echo $id;  ?>'>
+        <input type="hidden" name="user_id" value='<?php echo $Cid;  ?>'>
+        <button type='submit' name='cancel-submit' class='bg-black text-white px-3 py-2 border  hover:bg-white hover:text-black'>Request Cancellation</button>
+        </form>
+    </div>
     <aside>
         <h1><span>Contact us</span></h1>
         <div>
