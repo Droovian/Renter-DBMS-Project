@@ -106,7 +106,7 @@ if(isset($_SESSION['error-messages'])){
              var userConfirmed = confirm('Property has successfully listed with us.\\nYour Property ID is: " . $_SESSION['prop-id'] . "\\n\\nThanks for working with us, Renter Corp');
              
              if(userConfirmed){
-                window.location.href = 'Locator.php';
+                window.location.href = 'map.php';
              }
              else{
                 window.location.href = 'admin.php';

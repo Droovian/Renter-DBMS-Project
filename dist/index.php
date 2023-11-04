@@ -533,9 +533,9 @@ mysqli_close($conn);
     </div>
 </section>
 
-<section id='map-section' class="bg-gray-200 w-screen">
+<section id='maps' class="bg-gray-200 w-screen">
     <div id="map">
-
+        <?php  include("../maps/maps2.php"); ?>
     </div>
 </section>
 <footer class="flex justify-between border-black fixed bottom-0 bg-white w-screen">

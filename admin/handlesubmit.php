@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $property_id_of_user = $row['id'];
 
                     $_SESSION['prop-id'] = $property_id_of_user;
-
+                    $_SESSION["property_id_of_user"]=$property_id_of_user;
                 }
 
             } else {
