@@ -16,10 +16,12 @@ if (isset($_POST['login'])) {
         $name_db = $user_data["Name"];
         $email_db = $user_data["Email"];
         $pass_db = $user_data["password"];
+        $users_log_id = $user_data["id"];
 
         if (($users_email == $email_db) && password_verify($users_password, $pass_db)) {
             $_SESSION['username'] = $name_db;
             $_SESSION["check"] = $email_db;
+            $_SESSION['tocheckid'] = $users_log_id;
             header("location: index.php");
             exit();
         } else {
@@ -192,12 +194,10 @@ if (isset($_POST['login'])) {
     <div class="flex flex-row space-x-3 h-12 px-10 items-center">
         <a data-modal="renter"
             class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1 underline">Renter Corp™️</a>
-        <a data-modal="privacy"
-            class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Privacy</a>
-        <a data-modal="jobs"
-            class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Jobs</a>
-        <a data-modal="terms"
-            class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline">Terms</a>
+        <a 
+            class="text-sm text-amber-700 hover:text-amber-800 hover:underline-offset-1  underline"
+            href="../Founder/founderlogin.php"
+            >Administrator</a>
     </div>
     <div class="flex flex-row items-center space-x-4 px-10">
         <img src="images/reshot-icon-globe-PL5973EKAD.svg" class="w-5" alt="the-globe">

@@ -102,8 +102,21 @@ if(isset($_SESSION['error-messages'])){
     <p class="text-center text-green-600 text-xl font-bold p-2 mb-4">
         <?php 
         if(isset($_SESSION['success-message'])){
-            echo $_SESSION['success-message'];
+            echo "<script>
+             var userConfirmed = confirm('Property has successfully listed with us.\\nYour Property ID is: " . $_SESSION['prop-id'] . "\\n\\nThanks for working with us, Renter Corp');
+             
+             if(userConfirmed){
+                window.location.href = 'Locator.php';
+             }
+             else{
+                window.location.href = 'admin.php';
+                alert('Note: Precise location of your property has not been provided');
+             }
+          </script>";
+
+
             unset($_SESSION['success-message']);
+            unset($_SESSION['prop-id']);
         }
         ?>
     </p>
@@ -330,8 +343,6 @@ if(isset($_SESSION['error-messages'])){
     buttonElement.appendChild(svgElement);
   }
   
-    /* Close the autocomplete dropdown when the document is clicked. 
-  	Skip, when a user clicks on the input field */
   document.addEventListener("click", function(e) {
     if (e.target !== inputElement) {
       closeDropDownList();

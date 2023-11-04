@@ -15,7 +15,7 @@ session_start();
 
    <a href="../dist/login.php" class="bg-amber-500 text-white py-2 px-4 rounded-md hover:bg-amber-600 focus:outline-none focus:bg-blue-600 absolute top-4 left-4">Back to Home</a>
     <div class="bg-white p-8 rounded-lg shadow-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-        <h1 class="text-2xl font-semibold mb-4 text-center">Admin Login</h1>
+        <h1 class="text-2xl font-semibold mb-4 text-center">Owner Login</h1>
         <?php
         // Check if the form has been submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {

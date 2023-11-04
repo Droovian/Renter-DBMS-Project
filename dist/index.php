@@ -1,5 +1,10 @@
 <?php
 session_start();
+include("database.php");
+?>
+
+
+<?php
 
 if (!isset($_SESSION['username'])) {
     // User is not authenticated, redirect to the login page
@@ -7,7 +12,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-include("database.php");
+
 function getPropertyListings($conn, $searchLocation = null, $propertyType = null) {
     $sql = "SELECT * FROM property_listings WHERE 1=1"; // Start with a valid SQL query
 
@@ -168,11 +173,37 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
             echo '<button type="submit" class="w-60 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-10 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-red-500 focus:ring-opacity-50">Logout</button>';
             echo '</form>';
             echo '<br>';
+
+            if(isset($_SESSION['tocheckid']) && ($_SESSION['check'])){
+            $logged_users_id = $_SESSION['tocheckid'];
+            $check_email_db = $_SESSION['check'];
+
+            // echo $logged_users_id . $check_email_db;
+        
+            $sql = "SELECT * FROM finalusers WHERE id='$logged_users_id' AND Email='$check_email_db'";
+
+            $result = mysqli_query($conn, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                    $row = mysqli_fetch_assoc($result);
+                    
+                    $lister = $row["lister"];
+                    // echo $lister;
+                }
+        }
+
+           if(($lister == NULL) || ($lister === NULL)){
+            echo '<form action="become_lister.php" method="post" onsubmit="return confirm(\'Are you sure you want to become a lister?\');">';
+            echo '<button type="submit" name="become_lister" class="w-60 bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-green-500 focus:ring-opacity-50">Become a Lister</button>';
+            echo '</form>';
+            echo '<br>';
+           }
+            if($lister == 1){
             echo '
             <button class="w-60 bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">
                 <a href="../admin/admin.php">List your Property</a>
             </button>
             ';
+            }
             echo '<br>';
             echo '<form action="id.php" method="post">';
             echo '<input type="hidden" name="check" value="' . $_SESSION["check"] . '">';
@@ -200,6 +231,7 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
                 }
             }
         }
+        
         ?>
     </div>
 </div>

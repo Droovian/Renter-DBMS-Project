@@ -79,5 +79,8 @@ if(isset($_POST['cancel-submit']) && isset($_POST['property_id']) && isset($_POS
         }
         }
 
-
+        unset($_SESSION['fname']);
+        unset($_SESSION['cin_date']);
+        unset($_SESSION['cout_date']);
+        unset($_SESSION['emaill']);
 ?>
