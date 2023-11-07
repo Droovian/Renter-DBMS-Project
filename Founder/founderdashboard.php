@@ -2,26 +2,23 @@
 
 include("../dist/database.php");
 session_start();
+
 ?>
 
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Replace this with the actual password for the founder
+
     $founderPassword = "1234567890";
 
-    // Check if the entered password and confirm password match
     if (isset($_POST["password"]) && $_POST["password"] === $_POST["confirm_password"] && $_POST["password"] === $founderPassword) {
-        // Passwords match, allow access to the dashboard and set a cookie
-        setcookie("founderLoggedIn", "true", time() + 3600); // Cookie expires in 1 hour
+        setcookie("founderLoggedIn", "true", time() + 3600); 
 
-        // Redirect to the founder dashboard
         header("Location: founderdashboard.php");
         exit;
     } else {
-        // Passwords don't match or incorrect founder password
         $_SESSION['foundermessage']=  "Incorrect password or passwords do not match. Please try again.";
-        header("founderlogin.php");
+        header("Location: founderlogin.php");
         exit;
     }
 }

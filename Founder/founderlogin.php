@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,16 +12,17 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body class="bg-gray-100 flex justify-center items-center h-screen">
-
+    <p id='password_match_message' class='text-center font-light text-2xl text-black'></p>
     <?php  
     if(isset($_SESSION['foundermessage'])){
         echo $_SESSION['foundermessage'];
+        unset($_SESSION['foundermessage']);
     }
     ?>
     <div class="bg-white p-8 rounded shadow-lg w-1/3">
         <h2 class="text-2xl font-bold mb-4 text-center">Renter Owner Login</h2>
 
-        <form method="POST" action="founderdashboard.php" class="mt-4">
+        <form method="POST" action="founderdashboard.php" class="mt-4" onsubmit="return validateForm()">
             <div class="mb-4">
                 <label for="name" class="block text-gray-600 text-sm font-medium mb-2">Username:</label>
                 <input type="text" id="name" name="name" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" value="rentercorphead" disabled>
@@ -49,5 +54,19 @@
    function onSubmit(token) {
      document.getElementById("demo-form").submit();
    }
+
+    function validateForm() {
+        var password = document.getElementById("password").value;
+        var confirm_password = document.getElementById("confirm_password").value;
+        var password_match_message = document.getElementById("password_match_message");
+
+        if (password !== confirm_password) {
+            password_match_message.textContent = "Passwords do not match";
+            return false;
+        } else {
+            password_match_message.textContent = ""; // Clear the error message
+            return true;
+        }
+    }
  </script>
 </html>

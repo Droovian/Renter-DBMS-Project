@@ -32,7 +32,7 @@
                     </div>
                     <span class="font-light p-2 text-sm mb-5 mx-auto">Please enter your details</span>
                     <div class="flex flex-col space-y-3 mt-2 p-2">
-                        <form action="submitotp.php" class="flex flex-col space-y-3" method="post"
+                        <form action="submitotp.php" class="flex flex-col space-y-3 p-4" method="post"
                             onsubmit="return validateForm();">
                             <label for="">Name</label>
                             <input type="name"
@@ -84,6 +84,7 @@
                 <img src="images/boat.jpg" alt="boat-image" class="invisible md:visible w-1/2 rounded-md">
             </div>
         </div>
+        
         <footer class="invisible sm:visible flex justify-between border-black fixed bottom-0 bg-white w-screen">
             <div class="flex flex-row text-amber-700 space-x-3 h-12 px-10 items-center">
                 <a href="#" class="text-sm  hover:underline-offset-1 underline">Renter Corp™️</a>
