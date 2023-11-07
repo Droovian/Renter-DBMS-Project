@@ -1,17 +1,10 @@
-<?php
-session_start();
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>signup</title>
+    <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" href="./images/fox-svgrepo-com.svg">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <style>
         /* Center the outer container vertically and horizontally */
@@ -25,17 +18,6 @@ session_start();
     </style>
 </head>
 <body class='bg-gray-100'>
-   <?php
-      if(isset($_SESSION["duplicate"]) && ($_SESSION["duplicate"] == 1)){
-        echo "<script>
-            alert('An Account exists with the entered email, try logging in');
-            window.location.href = 'signup.php';
-        </script>";
-
-        unset($_SESSION["duplicate"]);
-      }
-    ?>
-   
 <div class="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
     <div class="hidden bg-cover lg:block lg:w-1/2" style="background-image: url('https://images.unsplash.com/photo-1606660265514-358ebbadc80d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80');"></div>
 

@@ -49,9 +49,8 @@ require 'phpmailer/src/SMTP.php';
 <?php
 
 $email_id =  $_POST["email"];
-$msg = 'Email already exists, Try logging in!';
 $sql = "SELECT * FROM finalusers WHERE Email = '$email_id'";
-
+$msg = 'An Account exists with the entered email, try logging in';
 $search = mysqli_query($conn, $sql);
 $search_res = mysqli_fetch_assoc($search);
 
@@ -64,8 +63,7 @@ $otp = rand(100000, 999999);
         $_SESSION['otp'] = $otp;
         if($email_id == $check_dup){
             header("Location: signup.php");
-        
-            $_SESSION["duplicate"] = $msg;
+            $_SESSION["duplicate"] = 1;
         }
         else {
         $mail = new PHPMailer(true);
