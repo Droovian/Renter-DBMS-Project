@@ -73,16 +73,16 @@ if (isset($_POST['login'])) {
     </div>
 
     <div id="sidebar"
-        class="fixed inset-y-0 right-0 w-64 bg-gray-900 text-white border-l border-gray-800 shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out h-[70vh]">
-        <div id="sidebarHeader" class="bg-amber-600 text-white p-4">
+        class="fixed inset-y-0 right-0 w-64 h-screen bg-white border-l border-gray-300 shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out">
+        <div id="sidebarHeader" class="bg-black text-white p-4">
             <h2 class="text-2xl font-semibold font-body">Dashboard</h2>
         </div>
 
         <div id="sidebarContent" class="flex flex-col space-y-5 p-4 h-full">
-            <p class="mt-2 font-light text-gray-300 text-center">Are you an Owner?</p>
+            <p class="mt-2 font-light text-center">Are you a Property Owner?</p>
             <button
-                class="bg-amber-700 hover:bg-amber-500 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">
-                <a href="../admin/adminlogin.php">Owner Login</a>
+                class=" text-white bg-amber-500 font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                <a href="../admin/adminlogin.php">Login</a>
             </button>
         </div>
     </div>

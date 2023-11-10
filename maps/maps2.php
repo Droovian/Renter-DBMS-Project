@@ -30,14 +30,14 @@
     }
 
     // Step 2: Retrieve latitude and longitude from the database
-    $query = "SELECT latitude, longitude FROM coordinates";
+    $query = "SELECT id, latitude, longitude FROM coordinates";
     $result = $conn->query($query);
 
     $coordinates = []; // Array to store latitude and longitude pairs
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $coordinates[] = [$row["latitude"], $row["longitude"]];
+            $coordinates[] = [$row["id"], $row["latitude"], $row["longitude"]];
         }
 
         // Close the database connection
@@ -61,22 +61,61 @@
 
         // Loop through the coordinates array and create markers for each pair
         <?php foreach ($coordinates as $coord): ?>
-            L.marker([<?php echo $coord[0]; ?>, <?php echo $coord[1]; ?>]).addTo(map);
+            L.marker([<?php echo $coord[1]; ?>, <?php echo $coord[2]; ?>]).addTo(map);
+        <?php endforeach; ?>
+
+
+        <?php foreach ($coordinates as $coord): ?>
+            var marker = L.marker([<?php echo $coord[1]; ?>, <?php echo $coord[2]; ?>]).addTo(map);
+            <?php  
+                include("../dist/database.php");
+
+                $sql = "SELECT property_name, property_type, description, name FROM property_listings WHERE id=" . $coord[0];
+
+                $result = $conn->query($sql);
+                $propertyName = "No property found"; // Default value if no property found
+
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    $propertyName = $row['property_name'];
+                    $propertyType = $row['property_type'];
+                    $sellerName = $row['name'];
+                    $description = $row['description'];
+                }
+
+                $conn->close();
+    ?>
+            marker.bindPopup("<b>Location Details</b><br>Name: <?php echo $propertyName; ?><br>Type: <?php echo $propertyType; ?><br>Seller Name: <?php echo $sellerName;  ?><br>Description: <?php echo $description;   ?>");
+            marker.on('mouseover', function (e) {
+                this.openPopup();
+            });
+            marker.on('mouseout', function (e) {
+                this.closePopup();
+            });
+            marker.on('click', function() {
+                window.location.href = '../bookings/booking.php?property_id=<?php echo $coord[0]; ?>';
+            });
         <?php endforeach; ?>
 
         // Get the user's current location
-        if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 var userLatitude = position.coords.latitude;
                 var userLongitude = position.coords.longitude;
                 console.log(userLatitude);
                 console.log(userLongitude);
-                // Add a marker for the user's current location with the custom icon
-                L.marker([userLatitude, userLongitude], { icon: L.Icon.Default }).addTo(map);
+                var userMarker = L.marker([userLatitude, userLongitude], { icon: L.Icon.Default }).addTo(map);
+                userMarker.bindPopup("<b>Your Current Location</b>");
+                userMarker.on('mouseover', function (e) {
+                    this.openPopup();
+                });
+                userMarker.on('mouseout', function (e) {
+                    this.closePopup();
+                });
+            }, function(error) {
+                console.error("Error getting the user's location:", error);
+                L.marker([0, 0]).addTo(map).bindPopup("Location access denied or unavailable.");
             });
-        } else {
-            console.log("Geolocation is not available in this browser.");
-        }
+        
     </script>
 
 </body>
