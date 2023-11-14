@@ -1,7 +1,6 @@
 <?php
 
 include("../dist/database.php");
-session_start();
 
 ?>
 
@@ -17,8 +16,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: founderdashboard.php");
         exit;
     } else {
-        $_SESSION['foundermessage']=  "Incorrect password or passwords do not match. Please try again.";
-        header("Location: founderlogin.php");
+        echo "<script>
+        alert('Incorrect password or passwords do not match. Please try again.');
+        window.location.href = 'founderlogin.php';
+        </script>";
+        
         exit;
     }
 }

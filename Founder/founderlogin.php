@@ -11,14 +11,10 @@ session_start();
     <title>Renter Owner Login</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
+<div class='absolute top-0 left-0 m-3 px-3 py-2'>
+    <button><a href="../dist/login.php">Back To Home</a></button>
+</div>
 <body class="bg-gray-100 flex justify-center items-center h-screen">
-    <p id='password_match_message' class='text-center font-light text-2xl text-black'></p>
-    <?php  
-    if(isset($_SESSION['foundermessage'])){
-        echo $_SESSION['foundermessage'];
-        unset($_SESSION['foundermessage']);
-    }
-    ?>
     <div class="bg-white p-8 rounded shadow-lg w-1/3">
         <h2 class="text-2xl font-bold mb-4 text-center">Renter Owner Login</h2>
 
@@ -38,10 +34,10 @@ session_start();
                 <input type="password" id="confirm_password" name="confirm_password" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" placeholder="Re-enter the password" minlength="8">
             </div>
 
-            <div class='form-group'>
+            <div class='form-group flex justify-left'>
             <div class="g-recaptcha" data-sitekey="6LfO1_MoAAAAANzLs5kdi9miomkmMwW6osN0FKd3"></div>
             </div>
-            <div class="text-center">
+            <div class="text-center mt-3">
                 <input type="submit" value="Log In" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
             </div>
             
