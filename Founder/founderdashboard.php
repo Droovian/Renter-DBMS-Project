@@ -114,7 +114,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         echo "<td class='px-4 py-2'>" . $row["Email"] . "</td>";
                         echo "<td class='px-4 py-2'>" . $row["phone_no"] . "</td>";
                         echo "<td class='px-4 py-2'>";
-                        if ($row["lister"] == 0) {
+
+                        if ($row["lister"] === '0') {
                             echo '<form method="POST" action="updatelist.php">';
                             echo '<input type="hidden" name="user_id" value="' . $row["id"] . '">';
                             echo '<button name="approval" type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50">Approve</button>';

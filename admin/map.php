@@ -93,7 +93,7 @@ session_start();
                     body: `lat=${lat}&lon=${lon}`,
                 }).then(response => {
                     if (response.ok) {
-                        alert('Coordinates saved to the database!');
+                        alert('Location fetched successfully!');
                         window.location.href="../dist/index.php";
                     } else {
                         alert('Failed to save coordinates.');

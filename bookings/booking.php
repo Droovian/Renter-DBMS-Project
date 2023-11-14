@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 session_start();
 include("../dist/database.php");
@@ -8,34 +8,53 @@ $propertyID = isset($_GET['property_id']) ? $_GET['property_id'] : null;
 $propertyName = isset($_GET['property_name']) ? $_GET['property_name'] : null;
 
 $_SESSION['propsname'] = $propertyName;
-if ($propertyID !== null) {
-    // Fetch property details based on the propertyID from the database
-    $sql = "SELECT * FROM property_listings WHERE id = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    
-    if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "i", $propertyID);
-        mysqli_stmt_execute($stmt);
-        $propertyDetails = mysqli_stmt_get_result($stmt);
-        
-        if ($propertyDetails) {
-            $property_data = mysqli_fetch_assoc($propertyDetails);
-            // Now, you have the details of the selected property to display on the booking page
+
+// Check if the user is logged in
+if (isset($_SESSION['check'])) {
+    $loggedInUserEmail = $_SESSION['check'];
+
+    if ($propertyID !== null) {
+        // Fetch property details based on the propertyID from the database
+        $sql = "SELECT * FROM property_listings WHERE id = ?";
+        $stmt = mysqli_prepare($conn, $sql);
+
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "i", $propertyID);
+            mysqli_stmt_execute($stmt);
+            $propertyDetails = mysqli_stmt_get_result($stmt);
+
+            if ($propertyDetails) {
+                $property_data = mysqli_fetch_assoc($propertyDetails);
+                // Check if the logged-in user is trying to book their own property
+                if ($loggedInUserEmail === $property_data['email']) {
+                    echo "
+                    <script>
+                    alert('Cannot book your own property');
+                    window.location.href = '../dist/index.php';
+                    </script>
+                    ";
+                } else {
+                    // Now, you have the details of the selected property to display on the booking page
+                }
+            } else {
+                echo "Property not found.";
+            }
         } else {
-            echo "Property not found.";
+            echo "Error: " . mysqli_error($conn);
         }
     } else {
-        echo "Error: " . mysqli_error($conn);
+        echo "
+        <p class='flex justify-between font-body'>Invalid property ID.</p>
+        ";
     }
+
+    // Close the database connection
+    mysqli_close($conn);
 } else {
-    echo "
-    <p class='flex justify-between font-body'>Invalid property ID.</p>
-    ";
+    // Redirect the user to the login page or display a message indicating that they need to log in
+    header("Location: login.php");
+    exit();
 }
-
-// Close the database connection
-mysqli_close($conn);
-
 ?>
 
 <!DOCTYPE html>

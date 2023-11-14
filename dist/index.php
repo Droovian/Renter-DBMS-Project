@@ -147,9 +147,9 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
       <span class="ml-3 text-2xl">Renter</span>
     </a>
     <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-      <a href='/' class="mr-5 hover:text-gray-900">Home</a>
-      <a class="mr-5 hover:text-gray-900">About</a>
-      <a class="mr-5 hover:text-gray-900">Contact</a>
+      <a href='index.php' class="mr-5 hover:text-gray-900">Home</a>
+      <a href="#about-us-page" class="mr-5 hover:text-gray-900">About</a>
+      <a href="#contact-me-page" class="mr-5 hover:text-gray-900">Contact</a>
       <a href="#bottom-of-page" class="mr-5 hover:text-gray-900">Maps</a>
     </nav>
     <button id='sidebarToggle' class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
@@ -292,7 +292,7 @@ $getprops = getPropertyListings($conn, $searchLocation, $propertyType);
         </div>
     </section>
 
-    <section class="body-font">
+    <section class="body-font" id='about-us-section'>
   <div class="container px-5 py-24 mx-auto my-10">
     <div class="flex flex-wrap w-full mb-20 flex-col items-center text-center">
       <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Your Trusted Property Sellers in Goa</h1>
@@ -604,7 +604,7 @@ mysqli_close($conn);
     </div>
 </section>
 
-<footer class="text-gray-600 body-font mt-20">
+<footer class="text-gray-600 body-font mt-20" id="contact-page">
   <div class="container px-5 py-5 mx-auto flex items-center sm:flex-row flex-col">
     <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
       <span class="ml-3 text-xl">Renter</span>
@@ -645,6 +645,16 @@ document.addEventListener("DOMContentLoaded", function() {
         event.preventDefault(); 
         const element = document.getElementById("map-finder");
         element.scrollIntoView({ behavior: "smooth" }); 
+    });
+    document.querySelector('a[href="#contact-me-page"]').addEventListener('click', function(event) {
+        event.preventDefault(); 
+        const contactElement = document.getElementById("contact-page");
+        contactElement.scrollIntoView({ behavior: "smooth" }); 
+    });
+    document.querySelector('a[href="#about-us-page"]').addEventListener('click', function(event) {
+        event.preventDefault(); 
+        const aboutElement = document.getElementById("about-us-section");
+        aboutElement.scrollIntoView({ behavior: "smooth" }); 
     });
 });
 </script>
