@@ -2,6 +2,9 @@
 
 Renter is a comprehensive property rental website built with PHP and MySQL, designed to facilitate property listings and bookings across Goa. This README provides an overview of the project, its features, and instructions for setting up and running the application.
 
+PDF showing the list of Modules other than Authentication below:
+[Modules.pdf](https://github.com/Droovian/Renter-DBMS-Project/files/14622540/Modules.pdf)
+
 ## Table of Contents
 - [Features](#features)
 - [Requirements](#requirements)
@@ -32,7 +35,7 @@ Renter is a comprehensive property rental website built with PHP and MySQL, desi
 - API integration for a comprehensive geographical information system.
 
 ### Reviews Module
-- Customers can leave reviews for properties after their bookings.
+- Customers can leave reviews for properties after their bookings as well as request for cancellation.
 
 ## Requirements
 - PHP (>= 7.0)
